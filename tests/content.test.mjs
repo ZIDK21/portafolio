@@ -150,7 +150,7 @@ test('bilingual content follows the shared contract, privacy policy, and visible
     assert.deepEqual(content.nav.map((item) => item.id), ['inicio', 'resultados', 'sobre-mi', 'servicios', 'proyectos', 'metodo', 'contacto']);
     assert.deepEqual(content.services.items.map((item) => item.id), ['operations', 'automation', 'support']);
     for (const item of content.services.items) {
-      assert.match(item.image, /^assets\/services\/[a-z-]+\.jpg$/);
+      assert.match(item.image, /^assets\/services\/[a-z-]+(-v[0-9]+)?\.jpg$/);
       assert.ok(item.alt.trim(), `${lang}/${item.id}: service image needs alt text`);
     }
     assert.equal(content.projects.length, ids.length);
