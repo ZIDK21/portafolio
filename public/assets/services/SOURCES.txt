@@ -5,10 +5,10 @@ Photographer credit lives on each source page below.
 
 - operations.jpg: desk with documents, magnifier and laptop.
   Source: https://www.pexels.com/photo/documents-on-table-8927453/
-- automation.jpg: laptop displaying code.
-  Source: https://www.pexels.com/photo/black-laptop-computer-turned-on-showing-computer-codes-177598/
-- support.jpg: technician repairing a laptop with tools.
-  Source: https://www.pexels.com/photo/a-woman-repairing-laptop-16385070/
+- automation.jpg: overhead desk with laptop, planner and coffee (workflow).
+  Source: https://www.pexels.com/photo/computer-desk-hand-laptop-374631/
+- support.jpg: support agent with headset working on a laptop.
+  Source: https://www.pexels.com/photo/a-woman-talking-on-a-headset-while-using-her-laptop-7709099/
 
 These are generic reference illustrations for the services section, not
 evidence of real client work. Real case evidence keeps its own provenance
