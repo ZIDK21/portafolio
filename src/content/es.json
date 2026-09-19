@@ -44,9 +44,9 @@
   "services": {
     "title": "Qué hago",
     "items": [
-      { "id": "operations", "title": "Asistencia y operaciones", "description": "Pedidos, inventario, atención posventa, CRM, seguimiento y reportes para que la información llegue ordenada." },
-      { "id": "automation", "title": "Automatización e integraciones", "description": "Flujos con n8n, Zapier, Apps Script, APIs y webhooks, con límites visibles y revisión humana." },
-      { "id": "support", "title": "Soporte técnico de Windows", "description": "Configuración, diagnóstico y resolución de problemas, y soporte remoto con AnyDesk y TeamViewer, documentando lo observado." }
+      { "id": "operations", "image": "assets/services/operations.jpg", "alt": "Imagen de referencia: escritorio con documentos y portátil", "title": "Asistencia y operaciones", "description": "Pedidos, inventario, atención posventa, CRM, seguimiento y reportes para que la información llegue ordenada." },
+      { "id": "automation", "image": "assets/services/automation.jpg", "alt": "Imagen de referencia: portátil con código en pantalla", "title": "Automatización e integraciones", "description": "Flujos con n8n, Zapier, Apps Script, APIs y webhooks, con límites visibles y revisión humana." },
+      { "id": "support", "image": "assets/services/support.jpg", "alt": "Imagen de referencia: técnica reparando un portátil", "title": "Soporte técnico de Windows", "description": "Configuración, diagnóstico y resolución de problemas, y soporte remoto con AnyDesk y TeamViewer, documentando lo observado." }
     ]
   },
   "projects": [

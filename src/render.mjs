@@ -37,6 +37,7 @@ export function renderPage(content, lang) {
     </a>` : '';
   const services = content.services.items.map((item, index) => `
     <div class="service service-${index + 1}" id="service-${escapeHtml(item.id)}">
+      <img class="service-image" src="${prefix}${safeAssetPath(item.image)}" alt="${escapeHtml(item.alt)}" width="800" height="800" loading="lazy">
       <h3>${escapeHtml(item.title)}</h3>
       <p>${escapeHtml(item.description)}</p>
     </div>`).join('');

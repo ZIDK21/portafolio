@@ -1,0 +1,15 @@
+Service reference images are Pexels stock photos, self-hosted at 800x800 (cropped via Pexels image CDN params w=800&h=800&fit=crop on 2026-09-19).
+
+Pexels License: free to use for commercial purposes, no attribution required.
+Photographer credit lives on each source page below.
+
+- operations.jpg: desk with documents, magnifier and laptop.
+  Source: https://www.pexels.com/photo/documents-on-table-8927453/
+- automation.jpg: laptop displaying code.
+  Source: https://www.pexels.com/photo/black-laptop-computer-turned-on-showing-computer-codes-177598/
+- support.jpg: technician repairing a laptop with tools.
+  Source: https://www.pexels.com/photo/a-woman-repairing-laptop-16385070/
+
+These are generic reference illustrations for the services section, not
+evidence of real client work. Real case evidence keeps its own provenance
+labels in src/content/*.json.

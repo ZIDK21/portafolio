@@ -91,12 +91,11 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .services { background: var(--surface-dark); color: var(--text-on-dark); }
 .services::before { position: absolute; inset: 0; background: radial-gradient(circle at 78% 30%, rgb(3 105 161 / .25), transparent 28rem); pointer-events: none; content: ""; }
 .services h2 { position: relative; margin-bottom: var(--space-5); }
-.services-grid { position: relative; display: grid; grid-template-columns: 1.3fr .7fr; grid-template-areas: "primary secondary" "primary tertiary"; gap: var(--space-2); }
-.service { padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--border-on-dark); border-radius: var(--radius-panel); background: var(--surface-dark-soft); }
-.service-1 { grid-area: primary; min-height: 22rem; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(150deg, #20364b, var(--surface-dark-soft)); }
-.service-2 { grid-area: secondary; } .service-3 { grid-area: tertiary; }
-.service h3 { margin-bottom: var(--space-2); }
-.service p { margin: 0; color: var(--text-muted-dark); }
+.services-grid { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+.service { overflow: hidden; padding: 0 0 clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--border-on-dark); border-radius: var(--radius-panel); background: var(--surface-dark-soft); }
+.service-image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.service h3 { margin: var(--space-3) var(--space-3) var(--space-2); }
+.service p { margin: 0 var(--space-3); color: var(--text-muted-dark); }
 
 .projects > .container > h2 { max-width: 10ch; margin-bottom: var(--space-6); }
 .projects-list { display: grid; gap: var(--space-5); }
@@ -189,8 +188,7 @@ footer p { margin: 0; font-size: .78rem; }
   .metric { grid-column: 1 / -1; padding: var(--space-3) 0; border-right: 0; }
   .about-intro { position: static; }
   .timeline li { grid-template-columns: 1fr; gap: .35rem; padding-left: var(--space-3); }
-  .services-grid { grid-template-columns: 1fr; grid-template-areas: "primary" "secondary" "tertiary"; }
-  .service-1 { min-height: 18rem; }
+  .services-grid { grid-template-columns: 1fr; }
   .project { padding: var(--space-3); }
   .project-heading, .project-body, .project-copy { grid-template-columns: 1fr; }
   .project-2 .project-copy, .project-3 .project-copy, .project-4 .project-copy { grid-template-columns: 1fr; }

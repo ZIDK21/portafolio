@@ -68,6 +68,9 @@ const referencedResources = (contents) => {
       for (const download of project.downloads) references.set(download.href, 'download');
     }
     if (content.about.cv?.href) references.set(content.about.cv.href, 'download');
+    for (const item of content.services.items) {
+      if (item.image) references.set(item.image, 'image');
+    }
   }
   return references;
 };
@@ -146,6 +149,10 @@ test('bilingual content follows the shared contract, privacy policy, and visible
     assert.deepEqual(Object.keys(content).sort(), [...topKeys].sort());
     assert.deepEqual(content.nav.map((item) => item.id), ['inicio', 'resultados', 'sobre-mi', 'servicios', 'proyectos', 'metodo', 'contacto']);
     assert.deepEqual(content.services.items.map((item) => item.id), ['operations', 'automation', 'support']);
+    for (const item of content.services.items) {
+      assert.match(item.image, /^assets\/services\/[a-z-]+\.jpg$/);
+      assert.ok(item.alt.trim(), `${lang}/${item.id}: service image needs alt text`);
+    }
     assert.equal(content.projects.length, ids.length);
     const raw = await readFile(join(root, 'src', 'content', `${lang}.json`), 'utf8');
     assert.doesNotMatch(raw, sensitive, `${lang}: sensitive content token`);
@@ -178,6 +185,9 @@ test('bilingual content follows the shared contract, privacy policy, and visible
   assert.deepEqual(es.projects.map((project) => project.id), en.projects.map((project) => project.id));
   assert.deepEqual(es.metrics.map((metric) => metric.id), en.metrics.map((metric) => metric.id));
   assert.deepEqual(es.services.items.map((item) => item.id), en.services.items.map((item) => item.id));
+  for (const [index, item] of es.services.items.entries()) {
+    assert.equal(item.image, en.services.items[index].image);
+  }
   assert.deepEqual(numberTokens(visibleText(es)), numberTokens(visibleText(en)));
   for (const index of es.projects.keys()) {
     assert.equal(es.projects[index].stack.length, en.projects[index].stack.length);
@@ -201,6 +211,7 @@ test('public resources are referenced, signature-checked, and contain no public 
     'assets/fonts/SOURCES.txt',
     'assets/fonts/SpaceGrotesk-latin.woff2',
     'assets/profile/portrait.jpg',
+    'assets/services/SOURCES.txt',
     'favicon.svg'
   ];
   const allowed = new Set([...references.keys(), ...mapAssets, ...staticPublicFiles]);

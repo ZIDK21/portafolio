@@ -44,9 +44,9 @@
   "services": {
     "title": "What I do",
     "items": [
-      { "id": "operations", "title": "Assistance and operations", "description": "Orders, inventory, after-sales support, CRM, follow-up, and reporting that keep information organized." },
-      { "id": "automation", "title": "Automation and integrations", "description": "Workflows with n8n, Zapier, Apps Script, APIs, and webhooks, with visible limits and human review." },
-      { "id": "support", "title": "Windows technical support", "description": "Setup, troubleshooting, and remote support with AnyDesk and TeamViewer, with the observed steps documented." }
+      { "id": "operations", "image": "assets/services/operations.jpg", "alt": "Reference image: desk with documents and laptop", "title": "Assistance and operations", "description": "Orders, inventory, after-sales support, CRM, follow-up, and reporting that keep information organized." },
+      { "id": "automation", "image": "assets/services/automation.jpg", "alt": "Reference image: laptop showing code", "title": "Automation and integrations", "description": "Workflows with n8n, Zapier, Apps Script, APIs, and webhooks, with visible limits and human review." },
+      { "id": "support", "image": "assets/services/support.jpg", "alt": "Reference image: technician repairing a laptop", "title": "Windows technical support", "description": "Setup, troubleshooting, and remote support with AnyDesk and TeamViewer, with the observed steps documented." }
     ]
   },
   "projects": [
