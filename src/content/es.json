@@ -22,7 +22,7 @@
   "metrics": [
     { "id": "tusa-cuts", "value": "135 cortes", "context": "TUSA MX, noviembre 2024 - agosto 2025; dos reportes por día operativo." },
     { "id": "calendar-time", "value": "5-10 → 2-3 min/día", "context": "Notion → Google Calendar, uso real entre abril y agosto de 2026." },
-    { "id": "dlro-checks", "value": "238 verificaciones", "context": "DLRO Editor; todas aprobadas y 2 omitidas en la ejecución documentada." },
+    { "id": "dlro-checks", "value": "238/240 verificaciones", "context": "DLRO Editor; 238 aprobadas y 2 omitidas en la ejecución documentada." },
     { "id": "hornitos-use", "value": "8-9 personas", "context": "Los Hornitos Uploader; uso documentado dentro de una previsión de 10-12." }
   ],
   "about": {
@@ -54,7 +54,7 @@
       "id": "tusa",
       "title": "TUSA MX: reportes operativos para Meta Ads",
       "summary": "En un bar con cuatro sedes, convertí el seguimiento de campañas en dos cortes diarios comparables. El trabajo documentado cubre noviembre de 2024 a agosto de 2025, con 135 cortes y alrededor de nueve campañas semanales.",
-      "problem": "No había plantillas comunes para comparar gasto, mensajes, mesas y personas entre sedes y horarios. Además, parte del material publicitario llegaba fuera del formato pedido por Meta.",
+      "problem": "No había plantillas comunes para comparar gasto, mensajes, mesas y personas entre sedes y horarios. Además, parte de las fotos y videos llegaba fuera del formato pedido por Meta.",
       "action": "Construí y documenté plantillas en Google Sheets y Excel. Reuní los datos de Meta Ads y el movimiento en sede a las 3 PM y 10 PM, comparé las cuatro sedes y envié cada reporte al grupo de WhatsApp de la empresa.",
       "result": "Mantuve 135 cortes con los mismos campos y horarios. El periodo registró 11.600 mensajes y 6.800 personas en sede, con unos 86 mensajes y 51 personas por reporte. El detalle por campaña permanece interno.",
       "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
@@ -71,7 +71,7 @@
       "title": "Notion → Google Calendar: fechas de entrega",
       "summary": "Para un cliente universitario, una fecha se registra en Notion y el flujo la refleja en Google Calendar con un aviso un día antes. El uso real ocurrió de abril a agosto de 2026, con 5-10 tareas por semana.",
       "problem": "La misma fecha y su contexto se copiaban y mantenían en dos sistemas. Ese trabajo repetido podía dejar una actualización o una entrega sin reflejar.",
-      "action": "Configuré un flujo unidireccional en Google Apps Script. Consulta Notion por páginas, crea, actualiza o retira eventos de día completo y devuelve solo el ID del evento, el estado y la fecha de sincronización. No reescribe los campos académicos.",
+      "action": "Configuré un flujo unidireccional en Google Apps Script. Consulta Notion por páginas (la paginación significa pedir los registros por bloques hasta cubrirlos todos), crea, actualiza o retira eventos de día completo y devuelve solo el identificador del evento (ID), el estado y la fecha de sincronización. No reescribe los campos académicos.",
       "result": "La carga diaria pasó de 5-10 a 2-3 minutos porque cada fecha se registra una sola vez. No se observaron fallos durante el periodo de uso; el flujo quedó pausado entre semestres y la revisión disponible del código es estática, sin trigger activo demostrado.",
       "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
       "evidence": {
@@ -87,8 +87,8 @@
       "title": "DLRO Editor: reportes eléctricos por lote",
       "summary": "Esta aplicación sin conexión para Windows reemplaza la corrección manual de PDF por PDF. En el lote real documentado, 110 reportes de dos cajas y dos familias de amperaje pasan por una sesión guiada sin editar los originales.",
       "problem": "El proceso manual dejaba valores en blanco, separaba mal Comments, perdía símbolos y podía aplanar la estructura de cajas. Todo debía funcionar sin red ni servidor.",
-      "action": "Automaticé la edición por zonas sobre copias temporales, dejé los resultados uno por uno por seguridad eléctrica y añadí ocho pestañas, vista previa por fila y exportación ZIP con verificación antes y después.",
-      "result": "Las regresiones E1-E4 quedaron cubiertas. La ejecución documentada tuvo 238 verificaciones aprobadas y 2 omitidas; el ZIP se revisa completo y los originales permanecen intactos. El EXE se verificó en el equipo de trabajo, sin despliegue multi-equipo demostrado.",
+      "action": "Automaticé la edición por zonas (cada campo se reescribe solo dentro de su recuadro) sobre copias temporales, conservé la revisión resultado por resultado por seguridad eléctrica y añadí ocho pestañas, vista previa por fila y exportación ZIP con verificación antes y después.",
+      "result": "Las regresiones E1-E4 (las cuatro pruebas automáticas de errores conocidos) quedaron cubiertas. La ejecución documentada tuvo 238 verificaciones aprobadas y 2 omitidas; el ZIP se revisa completo y los originales permanecen intactos. El EXE se verificó en el equipo de trabajo, sin despliegue multi-equipo demostrado.",
       "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
       "evidence": {
         "caption": "Evidencia textual trazable al caso de 110 PDFs; el material visual del PDF del cliente no se publica.",
@@ -103,7 +103,7 @@
       "title": "Los Hornitos Uploader: archivos bajo control local",
       "summary": "En este proyecto propio creé una plataforma para compartir archivos con una comunidad privada sin depender de servicios externos. El uso documentado fue de 8 o 9 personas entre el 26 de marzo y el 16 de julio de 2026, dentro de una previsión de 10-12.",
       "problem": "El intercambio anterior dejaba dudas sobre almacenamiento, enlaces, reanudación de subidas, recuperación de metadatos y exposición de datos personales.",
-      "action": "Construí una aplicación web local con iniciador para Windows y pasarela HTTPS. Guarda binarios y metadatos en local, divide subidas en fragmentos, valida SHA-256, genera enlaces individuales y QR, y permite descargas por rangos HTTP.",
+      "action": "Construí una aplicación web local con iniciador para Windows y pasarela HTTPS. Guarda archivos y metadatos en local (los binarios son los archivos tal cual), divide subidas en fragmentos, valida SHA-256 (una huella que detecta si un archivo cambió), genera enlaces individuales y QR, y permite descargas por rangos HTTP (reanudar desde donde se cortó).",
       "result": "La comunidad pasó de compartir mediante servicios externos a usar almacenamiento bajo control del propietario, enlaces directos y recuperación local. El instalador Stable 0.5.1 se verificó en el equipo de trabajo. No se afirma velocidad medida, disponibilidad permanente ni respaldo fuera del equipo.",
       "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
       "evidence": {

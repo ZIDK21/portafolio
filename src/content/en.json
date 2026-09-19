@@ -22,7 +22,7 @@
   "metrics": [
     { "id": "tusa-cuts", "value": "135 cuts", "context": "TUSA MX, November 2024 - August 2025; two reports per operating day." },
     { "id": "calendar-time", "value": "5-10 → 2-3 min/day", "context": "Notion → Google Calendar, real use from April to August 2026." },
-    { "id": "dlro-checks", "value": "238 checks", "context": "DLRO Editor; all approved, with 2 skipped in the documented run." },
+    { "id": "dlro-checks", "value": "238/240 checks", "context": "DLRO Editor; 238 approved and 2 skipped in the documented run." },
     { "id": "hornitos-use", "value": "8-9 people", "context": "Los Hornitos Uploader; documented use within a 10-12 person expectation." }
   ],
   "about": {
@@ -54,7 +54,7 @@
       "id": "tusa",
       "title": "TUSA MX: operational reporting for Meta Ads",
       "summary": "For a four-venue bar, I turned campaign follow-up into two comparable daily cuts. The documented work covers November 2024 to August 2025, with 135 cuts and about nine weekly campaigns.",
-      "problem": "There were no shared templates to compare spend, messages, tables, and visitors across venues and times. Ad photos and videos also arrived outside Meta's requested format.",
+      "problem": "There were no shared templates to compare spend, messages, tables at the venue, and on-site visitors across venues and times. Ad photos and videos also arrived outside Meta's requested format.",
       "action": "I built and documented Google Sheets and Excel templates. I collected Meta Ads and on-site movement at 3 PM and 10 PM, compared all four venues, and sent each report to the company WhatsApp group.",
       "result": "I maintained 135 cuts with the same fields and schedule. The period recorded 11,600 messages and 6,800 visitors, with about 86 messages and 51 visitors per report. Per-campaign detail stays internal.",
       "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
@@ -71,7 +71,7 @@
       "title": "Notion → Google Calendar: due-date automation",
       "summary": "For a university client, one date is entered in Notion and the flow reflects it in Google Calendar with a reminder one day ahead. Real use ran from April to August 2026, with 5-10 tasks per week.",
       "problem": "The same date and context had to be copied and maintained in two systems. Repeated work made it easier to miss an update or a due date.",
-      "action": "I set up a one-way Google Apps Script flow. It queries Notion in pages, creates, updates, or removes all-day events, and writes back only the event ID, status, and sync date. It does not rewrite academic fields.",
+      "action": "I set up a one-way Google Apps Script flow. It queries Notion page by page (pagination means requesting records in blocks until all are covered), creates, updates, or removes all-day events, and writes back only the event identifier (ID), status, and sync date. It does not rewrite academic fields.",
       "result": "The daily load went from 5-10 to 2-3 minutes because each date is entered once. No failures were observed during the use period; the flow paused between semesters, and the available code review is static with no active trigger demonstrated.",
       "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
       "evidence": {
@@ -87,8 +87,8 @@
       "title": "DLRO Editor: batch electrical reports",
       "summary": "This offline Windows application replaces PDF-by-PDF correction with one guided session. In the documented real batch, 110 reports across two boxes and two amperage families pass through the workflow without editing the originals.",
       "problem": "The manual process left values blank, misplaced the Comments block, lost symbols, and could flatten the box structure. Everything had to run without a network or server.",
-      "action": "I automated zone-based editing on temporary copies, kept results one by one for electrical safety, and added eight tabs, a per-row preview, and a ZIP export with integrity checks before and after.",
-      "result": "Regressions E1-E4 are covered. The documented run had 238 approved checks and 2 skipped; the ZIP is checked as a whole and originals remain untouched. The EXE was verified on the work machine, with no multi-machine rollout demonstrated.",
+      "action": "I automated zone-based editing (each field is rewritten only inside its own box) on temporary copies, kept the review result by result for electrical safety, and added eight tabs, a per-row preview, and a ZIP export with integrity checks before and after.",
+      "result": "Regressions E1-E4 (the four automated tests for known errors) are covered. The documented run had 238 approved checks and 2 skipped; the ZIP is checked as a whole and originals remain untouched. The EXE was verified on the work machine, with no multi-machine rollout demonstrated.",
       "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
       "evidence": {
         "caption": "Text evidence traced to the 110-PDF case; client-PDF visuals are not published.",
@@ -103,7 +103,7 @@
       "title": "Los Hornitos Uploader: locally controlled files",
       "summary": "For this personal project, I built a file-sharing platform for a private community without depending on outside services. Documented use covered 8 or 9 people from March 26 to July 16, 2026, within an expectation of 10-12.",
       "problem": "The previous sharing flow left open questions about storage, links, upload resumption, metadata recovery, and personal-data exposure.",
-      "action": "I built a local web app with a Windows launcher and HTTPS gateway. It stores binaries and metadata locally, splits uploads into chunks, checks SHA-256, creates single links and QR codes, and supports HTTP range downloads.",
+      "action": "I built a local web app with a Windows launcher and HTTPS gateway. It stores files and metadata locally (binaries are the raw files), splits uploads into chunks, checks SHA-256 (a fingerprint that detects whether a file changed), creates single links and QR codes, and supports HTTP range downloads (resuming where they stopped).",
       "result": "The community moved from outside services to owner-controlled storage, direct links, and local recovery. The Stable 0.5.1 installer was verified on the work machine. No measured speed, permanent availability, or off-machine backup is claimed.",
       "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
       "evidence": {
