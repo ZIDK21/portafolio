@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "title": "Jose Navas | Asistente virtual y automatización con IA",
+    "description": "Portafolio de Jose Navas: operaciones, automatización con IA e integraciones, soporte técnico de Windows y casos de trabajo documentados."
+  },
+  "nav": [
+    { "id": "inicio", "label": "Inicio" },
+    { "id": "resultados", "label": "Resultados" },
+    { "id": "sobre-mi", "label": "Sobre mí" },
+    { "id": "servicios", "label": "Qué hago" },
+    { "id": "proyectos", "label": "Proyectos" },
+    { "id": "metodo", "label": "Forma de trabajar" },
+    { "id": "contacto", "label": "Contacto" }
+  ],
+  "hero": {
+    "name": "JOSE NAVAS",
+    "role": "Asistente virtual y automatización con IA",
+    "summary": "Organizo operaciones, conecto herramientas y resuelvo incidencias técnicas con revisión humana y evidencia clara.",
+    "projectsLabel": "Ver proyectos",
+    "contactLabel": "Contactar"
+  },
+  "metrics": [
+    { "id": "tusa-cuts", "value": "135 cortes", "context": "TUSA MX, noviembre 2024 - agosto 2025; dos reportes por día operativo." },
+    { "id": "calendar-time", "value": "5-10 → 2-3 min/día", "context": "Notion → Google Calendar, uso real entre abril y agosto de 2026." },
+    { "id": "dlro-checks", "value": "238 verificaciones", "context": "DLRO Editor; todas aprobadas y 2 omitidas en la ejecución documentada." },
+    { "id": "hornitos-use", "value": "8-9 personas", "context": "Los Hornitos Uploader; uso documentado dentro de una previsión de 10-12." }
+  ],
+  "about": {
+    "title": "Sobre mí y trayectoria",
+    "summary": "Soy asistente virtual orientado a automatización con IA. He trabajado con atención al cliente, pedidos, inventario, CRM, reportes y soporte remoto para Windows. También configuro flujos con n8n, Zapier y Apps Script, y uso Google Workspace, Excel, SQL y Supabase. Reviso los resultados de IA antes de incorporarlos al trabajo.",
+    "timeline": [
+      { "date": "May 2023 - presente", "text": "Freelance y proyectos independientes: pedidos, inventario, posventa, CRM, reportes, automatización y soporte Windows." },
+      { "date": "Nov 2024 - ago 2025", "text": "TUSA MX: administración de anuncios en Meta Ads y dos reportes diarios de rendimiento y actividad por sede." },
+      { "date": "Sep 2022 - dic 2022", "text": "Farmacia Maraplus: atención presencial, operaciones, inventario y apoyo informático básico." },
+      { "date": "Feb 2017 - dic 2018", "text": "Inversiones D'Alfredo C.A.: atención al cliente, caja, compras y soporte técnico básico." }
+    ],
+    "education": "Ingeniería de Sistemas en línea, en curso. Politécnico Santiago Mariño, Venezuela. Estimado 2028.",
+    "certifications": [
+      "Google Workspace: insignias de finalización en Gmail, Drive, Docs, Sheets, Slides, Chat, Meet, Calendar y Sheets Advanced Topics.",
+      "Google Cloud e IA: Introduction to Generative AI e Introduction to Gemini for Google Workspace."
+    ],
+    "cv": null
+  },
+  "services": {
+    "title": "Qué hago",
+    "items": [
+      { "id": "operations", "title": "Asistencia y operaciones", "description": "Pedidos, inventario, atención posventa, CRM, seguimiento y reportes para que la información llegue ordenada." },
+      { "id": "automation", "title": "Automatización e integraciones", "description": "Flujos con n8n, Zapier, Apps Script, APIs y webhooks, con límites visibles y revisión humana." },
+      { "id": "support", "title": "Soporte técnico de Windows", "description": "Configuración, diagnóstico y resolución de problemas, y soporte remoto con AnyDesk y TeamViewer, documentando lo observado." }
+    ]
+  },
+  "projects": [
+    {
+      "id": "tusa",
+      "title": "TUSA MX: reportes operativos para Meta Ads",
+      "summary": "En un bar con cuatro sedes, convertí el seguimiento de campañas en dos cortes diarios comparables. El trabajo documentado cubre noviembre de 2024 a agosto de 2025, con 135 cortes y alrededor de nueve campañas semanales.",
+      "problem": "No había plantillas comunes para comparar gasto, mensajes, mesas y personas entre sedes y horarios. Además, parte del material publicitario llegaba fuera del formato pedido por Meta.",
+      "action": "Construí y documenté plantillas en Google Sheets y Excel. Reuní los datos de Meta Ads y el movimiento en sede a las 3 PM y 10 PM, comparé las cuatro sedes y envié cada reporte al grupo de WhatsApp de la empresa.",
+      "result": "Mantuve 135 cortes con los mismos campos y horarios. El periodo registró 11.600 mensajes y 6.800 personas en sede, con unos 86 mensajes y 51 personas por reporte. El detalle por campaña permanece interno.",
+      "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
+      "evidence": {
+        "caption": "Evidencia textual trazable al caso TUSA MX; el material visual no se publica por contener datos personales.",
+        "provenance": "Uso real documentado con un bar de cuatro sedes. El PDF canónico no se publica porque contiene datos personales; el respaldo detallado permanece en el archivo interno del cliente.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "notion-calendar",
+      "title": "Notion → Google Calendar: fechas de entrega",
+      "summary": "Para un cliente universitario, una fecha se registra en Notion y el flujo la refleja en Google Calendar con un aviso un día antes. El uso real ocurrió de abril a agosto de 2026, con 5-10 tareas por semana.",
+      "problem": "La misma fecha y su contexto se copiaban y mantenían en dos sistemas. Ese trabajo repetido podía dejar una actualización o una entrega sin reflejar.",
+      "action": "Configuré un flujo unidireccional en Google Apps Script. Consulta Notion por páginas, crea, actualiza o retira eventos de día completo y devuelve solo el ID del evento, el estado y la fecha de sincronización. No reescribe los campos académicos.",
+      "result": "La carga diaria pasó de 5-10 a 2-3 minutos porque cada fecha se registra una sola vez. No se observaron fallos durante el periodo de uso; el flujo quedó pausado entre semestres y la revisión disponible del código es estática, sin trigger activo demostrado.",
+      "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
+      "evidence": {
+        "caption": "Evidencia textual trazable al caso y a la estructura verificada; el material visual del PDF se reserva para proteger el contexto académico.",
+        "provenance": "Uso real con un cliente universitario y estructura de columnas verificada en vivo. El PDF canónico no se publica porque puede identificar el contexto; el código y el manifiesto sirven como respaldo estático.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "dlro",
+      "title": "DLRO Editor: reportes eléctricos por lote",
+      "summary": "Esta aplicación sin conexión para Windows reemplaza la corrección manual de PDF por PDF. En el lote real documentado, 110 reportes de dos cajas y dos familias de amperaje pasan por una sesión guiada sin editar los originales.",
+      "problem": "El proceso manual dejaba valores en blanco, separaba mal Comments, perdía símbolos y podía aplanar la estructura de cajas. Todo debía funcionar sin red ni servidor.",
+      "action": "Automaticé la edición por zonas sobre copias temporales, dejé los resultados uno por uno por seguridad eléctrica y añadí ocho pestañas, vista previa por fila y exportación ZIP con verificación antes y después.",
+      "result": "Las regresiones E1-E4 quedaron cubiertas. La ejecución documentada tuvo 238 verificaciones aprobadas y 2 omitidas; el ZIP se revisa completo y los originales permanecen intactos. El EXE se verificó en el equipo de trabajo, sin despliegue multi-equipo demostrado.",
+      "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
+      "evidence": {
+        "caption": "Evidencia textual trazable al caso de 110 PDFs; el material visual del PDF del cliente no se publica.",
+        "provenance": "Uso real con un lote de 110 PDFs. El PDF canónico no se publica porque puede identificar al cliente; el respaldo incluye pruebas automatizadas y referencias de solo lectura con integridad preservada.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "hornitos",
+      "title": "Los Hornitos Uploader: archivos bajo control local",
+      "summary": "En este proyecto propio creé una plataforma para compartir archivos con una comunidad privada sin depender de servicios externos. El uso documentado fue de 8 o 9 personas entre el 26 de marzo y el 16 de julio de 2026, dentro de una previsión de 10-12.",
+      "problem": "El intercambio anterior dejaba dudas sobre almacenamiento, enlaces, reanudación de subidas, recuperación de metadatos y exposición de datos personales.",
+      "action": "Construí una aplicación web local con iniciador para Windows y pasarela HTTPS. Guarda binarios y metadatos en local, divide subidas en fragmentos, valida SHA-256, genera enlaces individuales y QR, y permite descargas por rangos HTTP.",
+      "result": "La comunidad pasó de compartir mediante servicios externos a usar almacenamiento bajo control del propietario, enlaces directos y recuperación local. El instalador Stable 0.5.1 se verificó en el equipo de trabajo. No se afirma velocidad medida, disponibilidad permanente ni respaldo fuera del equipo.",
+      "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
+      "evidence": {
+        "caption": "Evidencia textual del proyecto propio; el material visual del PDF se reserva por contener datos personales.",
+        "provenance": "Proyecto propio usado con una comunidad privada. El PDF canónico no se publica porque contiene datos personales; la evidencia de código, pruebas e instalador permanece en el respaldo interno.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "dns",
+      "title": "Windows y ProtonVPN: diagnóstico de DNS",
+      "summary": "Esta muestra técnica personal documenta un fallo de resolución de nombres en Windows 10. El adaptador seguía conectado y el ping funcionaba, pero el navegador y las aplicaciones no resolvían dominios.",
+      "problem": "La conectividad IP y la resolución DNS se estaban confundiendo. La evidencia original disponible no incluye una captura del navegador ni del Event Viewer, por eso esas vistas se mantienen identificadas como reconstruidas o conceptuales.",
+      "action": "Separé conectividad IP de resolución de nombres, relacioné el fallo con una política persistente de ProtonVPN en el almacén DnsPolicyConfig, documenté la eliminación de la política y limpié la caché del resolver.",
+      "result": "La verificación documentada registra una consulta nslookup google.com atendida por dns.google en 8.8.8.8. Desactivar la conexión automática de ProtonVPN fue parte de la prevención descrita; no se presenta como una solución universal.",
+      "stack": ["Windows 10", "ProtonVPN", "DNS Client", "Registro de Windows", "ipconfig", "nslookup"],
+      "evidence": {
+        "caption": "Portada de la presentación técnica del caso DNS; las etiquetas distinguen evidencia fuente de vistas reconstruidas.",
+        "provenance": "Muestra técnica personal, no testimonio de un cliente pagado. Se conservaron solo exportaciones sin rutas locales ni identificadores personales.",
+        "image": "assets/dns/01-cover.png",
+        "alt": "Portada de un caso personal de soporte de Windows y resolución DNS"
+      },
+      "downloads": []
+    }
+  ],
+  "working": {
+    "title": "Forma de trabajar",
+    "paragraphs": [
+      "Empiezo por aclarar qué debe cambiar y qué no debe tocarse. Después documento el flujo, sus límites y la evidencia disponible.",
+      "Prefiero pasos que se puedan revisar: datos con procedencia, pruebas para los cambios y una explicación que deje claro lo demostrado y lo pendiente. Cuando uso IA, reviso el resultado antes de incorporarlo al trabajo."
+    ]
+  },
+  "contact": {
+    "title": "Hablemos",
+    "summary": "Si necesitas apoyo operativo, una integración o diagnóstico de Windows, puedes escribirme con el contexto y el resultado que buscas.",
+    "emailLabel": "josenavas873@gmail.com",
+    "phoneLabel": "+58 412 700 6867",
+    "linkedinLabel": "linkedin.com/in/jose-navas21",
+    "reasons": [
+      { "label": "Asistencia y operaciones", "subject": "Consulta sobre asistencia y operaciones" },
+      { "label": "Automatización", "subject": "Consulta sobre automatización" },
+      { "label": "Soporte Windows", "subject": "Consulta sobre soporte Windows" }
+    ]
+  },
+  "ui": {
+    "languageLabel": "Idioma",
+    "skipLabel": "Saltar al contenido",
+    "expandLabel": "Ampliar imagen",
+    "closeLabel": "Cerrar",
+    "problemLabel": "Problema",
+    "actionLabel": "Intervención",
+    "resultLabel": "Resultado",
+    "stackLabel": "Herramientas",
+    "evidenceLabel": "Evidencia",
+    "pdfLabel": "Descargas",
+    "metricsTitle": "Resultados destacados",
+    "projectsTitle": "Proyectos documentados"
+  }
+}

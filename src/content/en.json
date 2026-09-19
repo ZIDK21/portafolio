@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "title": "Jose Navas | Virtual assistant and AI automation",
+    "description": "Jose Navas portfolio: operations, AI automation and integrations, Windows technical support, and documented work cases."
+  },
+  "nav": [
+    { "id": "inicio", "label": "Home" },
+    { "id": "resultados", "label": "Results" },
+    { "id": "sobre-mi", "label": "About" },
+    { "id": "servicios", "label": "What I do" },
+    { "id": "proyectos", "label": "Projects" },
+    { "id": "metodo", "label": "How I work" },
+    { "id": "contacto", "label": "Contact" }
+  ],
+  "hero": {
+    "name": "JOSE NAVAS",
+    "role": "Virtual assistant and AI automation",
+    "summary": "I organize operations, connect tools, and troubleshoot technical issues with human review and clear evidence.",
+    "projectsLabel": "View projects",
+    "contactLabel": "Get in touch"
+  },
+  "metrics": [
+    { "id": "tusa-cuts", "value": "135 cuts", "context": "TUSA MX, November 2024 - August 2025; two reports per operating day." },
+    { "id": "calendar-time", "value": "5-10 → 2-3 min/day", "context": "Notion → Google Calendar, real use from April to August 2026." },
+    { "id": "dlro-checks", "value": "238 checks", "context": "DLRO Editor; all approved, with 2 skipped in the documented run." },
+    { "id": "hornitos-use", "value": "8-9 people", "context": "Los Hornitos Uploader; documented use within a 10-12 person expectation." }
+  ],
+  "about": {
+    "title": "About me and my path",
+    "summary": "I am a virtual assistant focused on AI automation. My background includes customer support, orders, inventory, CRM, reporting, and remote Windows support. I also configure workflows with n8n, Zapier, and Apps Script, and work with Google Workspace, Excel, SQL, and Supabase. I review AI output before it becomes part of the work.",
+    "timeline": [
+      { "date": "May 2023 - present", "text": "Freelance and independent projects: orders, inventory, after-sales work, CRM, reporting, automation, and Windows support." },
+      { "date": "Nov 2024 - Aug 2025", "text": "TUSA MX: Meta Ads administration and two daily performance and venue-activity reports." },
+      { "date": "Sep 2022 - Dec 2022", "text": "Farmacia Maraplus: in-person support, operations, inventory, and basic IT assistance." },
+      { "date": "Feb 2017 - Dec 2018", "text": "Inversiones D'Alfredo C.A.: customer support, cashier and purchasing support, and basic technical support." }
+    ],
+    "education": "Systems Engineering, online and in progress. Politécnico Santiago Mariño, Venezuela. Expected 2028.",
+    "certifications": [
+      "Google Workspace: completion badges in Gmail, Drive, Docs, Sheets, Slides, Chat, Meet, Calendar, and Sheets Advanced Topics.",
+      "Google Cloud and AI: Introduction to Generative AI and Introduction to Gemini for Google Workspace."
+    ],
+    "cv": null
+  },
+  "services": {
+    "title": "What I do",
+    "items": [
+      { "id": "operations", "title": "Assistance and operations", "description": "Orders, inventory, after-sales support, CRM, follow-up, and reporting that keep information organized." },
+      { "id": "automation", "title": "Automation and integrations", "description": "Workflows with n8n, Zapier, Apps Script, APIs, and webhooks, with visible limits and human review." },
+      { "id": "support", "title": "Windows technical support", "description": "Setup, troubleshooting, and remote support with AnyDesk and TeamViewer, with the observed steps documented." }
+    ]
+  },
+  "projects": [
+    {
+      "id": "tusa",
+      "title": "TUSA MX: operational reporting for Meta Ads",
+      "summary": "For a four-venue bar, I turned campaign follow-up into two comparable daily cuts. The documented work covers November 2024 to August 2025, with 135 cuts and about nine weekly campaigns.",
+      "problem": "There were no shared templates to compare spend, messages, tables, and visitors across venues and times. Ad photos and videos also arrived outside Meta's requested format.",
+      "action": "I built and documented Google Sheets and Excel templates. I collected Meta Ads and on-site movement at 3 PM and 10 PM, compared all four venues, and sent each report to the company WhatsApp group.",
+      "result": "I maintained 135 cuts with the same fields and schedule. The period recorded 11,600 messages and 6,800 visitors, with about 86 messages and 51 visitors per report. Per-campaign detail stays internal.",
+      "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
+      "evidence": {
+        "caption": "Text evidence traced to the TUSA MX case; visual material is not published because it contains personal data.",
+        "provenance": "Documented real use with a four-venue bar. The canonical PDF is not published because it contains personal data; detailed backup stays in the client's internal file.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "notion-calendar",
+      "title": "Notion → Google Calendar: due-date automation",
+      "summary": "For a university client, one date is entered in Notion and the flow reflects it in Google Calendar with a reminder one day ahead. Real use ran from April to August 2026, with 5-10 tasks per week.",
+      "problem": "The same date and context had to be copied and maintained in two systems. Repeated work made it easier to miss an update or a due date.",
+      "action": "I set up a one-way Google Apps Script flow. It queries Notion in pages, creates, updates, or removes all-day events, and writes back only the event ID, status, and sync date. It does not rewrite academic fields.",
+      "result": "The daily load went from 5-10 to 2-3 minutes because each date is entered once. No failures were observed during the use period; the flow paused between semesters, and the available code review is static with no active trigger demonstrated.",
+      "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
+      "evidence": {
+        "caption": "Text evidence traced to the case and its checked structure; PDF visuals are withheld to protect the academic context.",
+        "provenance": "Real use with a university client and a field structure checked live. The canonical PDF is not published because it may identify the context; the code and manifest are available as static backup.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "dlro",
+      "title": "DLRO Editor: batch electrical reports",
+      "summary": "This offline Windows application replaces PDF-by-PDF correction with one guided session. In the documented real batch, 110 reports across two boxes and two amperage families pass through the workflow without editing the originals.",
+      "problem": "The manual process left values blank, misplaced the Comments block, lost symbols, and could flatten the box structure. Everything had to run without a network or server.",
+      "action": "I automated zone-based editing on temporary copies, kept results one by one for electrical safety, and added eight tabs, a per-row preview, and a ZIP export with integrity checks before and after.",
+      "result": "Regressions E1-E4 are covered. The documented run had 238 approved checks and 2 skipped; the ZIP is checked as a whole and originals remain untouched. The EXE was verified on the work machine, with no multi-machine rollout demonstrated.",
+      "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
+      "evidence": {
+        "caption": "Text evidence traced to the 110-PDF case; client-PDF visuals are not published.",
+        "provenance": "Real use with a 110-PDF batch. The canonical PDF is not published because it may identify the client; backup includes automated tests and read-only references with preserved integrity.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "hornitos",
+      "title": "Los Hornitos Uploader: locally controlled files",
+      "summary": "For this personal project, I built a file-sharing platform for a private community without depending on outside services. Documented use covered 8 or 9 people from March 26 to July 16, 2026, within an expectation of 10-12.",
+      "problem": "The previous sharing flow left open questions about storage, links, upload resumption, metadata recovery, and personal-data exposure.",
+      "action": "I built a local web app with a Windows launcher and HTTPS gateway. It stores binaries and metadata locally, splits uploads into chunks, checks SHA-256, creates single links and QR codes, and supports HTTP range downloads.",
+      "result": "The community moved from outside services to owner-controlled storage, direct links, and local recovery. The Stable 0.5.1 installer was verified on the work machine. No measured speed, permanent availability, or off-machine backup is claimed.",
+      "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
+      "evidence": {
+        "caption": "Text evidence from this personal project; PDF visuals are withheld because they contain personal data.",
+        "provenance": "Own project used with a private community. The canonical PDF is not published because it contains personal data; code, tests, installer, and architecture notes remain in internal backup.",
+        "image": null,
+        "alt": ""
+      },
+      "downloads": []
+    },
+    {
+      "id": "dns",
+      "title": "Windows and ProtonVPN: DNS troubleshooting",
+      "summary": "This personal technical sample documents a Windows 10 name-resolution failure. The adapter remained connected and ping worked, but browsers and applications could not resolve domains.",
+      "problem": "IP connectivity and DNS resolution were being treated as the same problem. The original evidence does not include a browser-failure or Event Viewer screenshot, so those views remain labeled as recreated or conceptual.",
+      "action": "I separated IP connectivity from name resolution, linked the failure to a persistent ProtonVPN policy in the DnsPolicyConfig store, documented its removal, and flushed the resolver cache.",
+      "result": "The documented verification records an nslookup google.com response from dns.google at 8.8.8.8. Disabling ProtonVPN auto-connect was part of the described prevention; this is not presented as a universal fix.",
+      "stack": ["Windows 10", "ProtonVPN", "DNS Client", "Windows Registry", "ipconfig", "nslookup"],
+      "evidence": {
+        "caption": "Cover of the technical DNS case presentation; labels distinguish source evidence from recreated views.",
+        "provenance": "Independent personal technical sample, not a paid-client testimonial. Only exports without local paths or personal identifiers were kept.",
+        "image": "assets/dns/01-cover.png",
+        "alt": "Cover of a personal Windows support case about DNS resolution"
+      },
+      "downloads": []
+    }
+  ],
+  "working": {
+    "title": "How I work",
+    "paragraphs": [
+      "I start by clarifying what must change and what must stay untouched. Then I document the flow, its limits, and the evidence available.",
+      "I prefer steps that can be checked: sourced data, tests for changes, and an explanation that separates what is demonstrated from what remains open. When I use AI, I review the output before it becomes part of the work."
+    ]
+  },
+  "contact": {
+    "title": "Let's talk",
+    "summary": "If you need operational support, an integration, or Windows troubleshooting, send me the context and the outcome you need.",
+    "emailLabel": "josenavas873@gmail.com",
+    "phoneLabel": "+58 412 700 6867",
+    "linkedinLabel": "linkedin.com/in/jose-navas21",
+    "reasons": [
+      { "label": "Assistance and operations", "subject": "Question about assistance and operations" },
+      { "label": "Automation", "subject": "Question about automation" },
+      { "label": "Windows support", "subject": "Question about Windows support" }
+    ]
+  },
+  "ui": {
+    "languageLabel": "Language",
+    "skipLabel": "Skip to content",
+    "expandLabel": "Expand image",
+    "closeLabel": "Close",
+    "problemLabel": "Problem",
+    "actionLabel": "Action",
+    "resultLabel": "Result",
+    "stackLabel": "Tools",
+    "evidenceLabel": "Evidence",
+    "pdfLabel": "Downloads",
+    "metricsTitle": "Selected results",
+    "projectsTitle": "Documented projects"
+  }
+}

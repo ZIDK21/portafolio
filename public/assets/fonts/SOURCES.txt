@@ -1,0 +1,6 @@
+Space Grotesk and Manrope are bundled from the official Google Fonts distribution.
+
+- Manrope-latin.woff2: https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2
+- SpaceGrotesk-latin.woff2: https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2
+- License text: OFL-Manrope.txt and OFL-Space-Grotesk.txt, SIL Open Font License 1.1.
+- License files verified against the official google/fonts repository on 2026-09-18.
