@@ -67,7 +67,8 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .metrics-section { padding-block: var(--space-6); border-block: 1px solid var(--border); background: var(--surface); }
 .metrics-section h2 { max-width: 9ch; margin-bottom: var(--space-5); }
 .metrics-band { display: grid; grid-template-columns: repeat(12, 1fr); border-top: 1px solid var(--border-strong); }
-.metric { grid-column: span 3; padding: var(--space-3) var(--space-3) 0 0; border-right: 1px solid var(--border); }
+.metric { grid-column: span 3; padding: var(--space-3) var(--space-3) 0 var(--space-3); border-right: 1px solid var(--border); }
+.metric:nth-child(4n+1) { padding-left: 0; }
 .metric:last-child { border-right: 0; }
 .metric dt { font: 650 clamp(1.6rem, 3vw, 2.5rem)/1 var(--font-display); letter-spacing: -.04em; }
 .metric dd { margin: .85rem 0 0; color: var(--text-muted); font-size: .88rem; line-height: 1.55; }
@@ -167,6 +168,7 @@ footer p { margin: 0; font-size: .78rem; }
   .hero-portrait { transform: none; }
   .hero-portrait::before { right: 0; }
   .metric { grid-column: span 6; border-bottom: 1px solid var(--border); }
+  .metric:nth-child(2n+1) { padding-left: 0; }
   .project-heading, .project-body, .project-3 .project-body { grid-template-columns: 1fr; }
   .project-3 .project-copy, .project-3 .evidence { order: initial; }
 }
