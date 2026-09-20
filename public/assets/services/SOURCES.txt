@@ -7,8 +7,8 @@ Photographer credit lives on each source page below.
   Source: https://www.pexels.com/photo/documents-on-table-8927453/
 - automation.jpg: overhead desk with laptop, planner and coffee (workflow).
   Source: https://www.pexels.com/photo/computer-desk-hand-laptop-374631/
-- support.jpg: support agent with headset working on a laptop.
-  Source: https://www.pexels.com/photo/a-woman-talking-on-a-headset-while-using-her-laptop-7709099/
+- support-v3.jpg: smiling support agent with headset assisting customers.
+  Source: https://www.pexels.com/photo/man-in-long-sleeve-shirt-with-black-headset-and-mouthpiece-7709225/
 
 These are generic reference illustrations for the services section, not
 evidence of real client work. Real case evidence keeps its own provenance
