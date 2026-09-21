@@ -212,7 +212,9 @@ test('public resources are referenced, signature-checked, and contain no public 
     'assets/fonts/SpaceGrotesk-latin.woff2',
     'assets/profile/portrait.jpg',
     'assets/services/SOURCES.txt',
-    'favicon.svg'
+    'favicon.svg',
+    'robots.txt',
+    'sitemap.xml'
   ];
   const allowed = new Set([...references.keys(), ...mapAssets, ...staticPublicFiles]);
   const publicFiles = await publicRelativeFiles();
@@ -278,4 +280,74 @@ test('renderer emits complete semantic ES and EN documents with portable resourc
   assert.match(enHtml, /class="service-icon"/);
   assert.match(esHtml, /rel="preload" href="\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
   assert.match(enHtml, /rel="preload" href="\.\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
+
+  for (const [html, canonical, locale, alternateLocale] of [
+    [esHtml, 'https://zidk21.github.io/portafolio/', 'es_ES', 'en_US'],
+    [enHtml, 'https://zidk21.github.io/portafolio/en/', 'en_US', 'es_ES']
+  ]) {
+    assert.match(html, new RegExp(`<meta name="robots" content="index, follow, max-image-preview:large">`));
+    assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replaceAll('/', '\\/')}"`));
+    assert.match(html, new RegExp(`<meta property="og:url" content="${canonical.replaceAll('/', '\\/')}"`));
+    assert.match(html, new RegExp(`<meta property="og:locale" content="${locale}">`));
+    assert.match(html, new RegExp(`<meta property="og:locale:alternate" content="${alternateLocale}">`));
+    assert.match(html, /<link rel="alternate" hreflang="es" href="https:\/\/zidk21\.github\.io\/portafolio\/">/);
+    assert.match(html, /<link rel="alternate" hreflang="en" href="https:\/\/zidk21\.github\.io\/portafolio\/en\/">/);
+    assert.match(html, /<link rel="alternate" hreflang="x-default" href="https:\/\/zidk21\.github\.io\/portafolio\/">/);
+    assert.match(html, /<meta property="og:image" content="https:\/\/zidk21\.github\.io\/portafolio\/assets\/profile\/portrait\.jpg">/);
+    const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+    assert.ok(jsonLd, 'JSON-LD must be present');
+    assert.equal(JSON.parse(jsonLd)['@type'], 'Person');
+    assert.doesNotMatch(jsonLd, /<\//, 'JSON-LD must not contain executable HTML markup');
+  }
+
+  for (const html of [esHtml, enHtml]) {
+    assert.match(html, /<section[^>]*id="inicio"[^>]*aria-labelledby="hero-title"/);
+    assert.match(html, /<h1 id="hero-title"/);
+    assert.match(html, /<p[^>]*id="hero-summary"/);
+
+    for (const [sectionId, headingId] of [
+      ['resultados', 'metrics-title'],
+      ['sobre-mi', 'about-title'],
+      ['servicios', 'services-title'],
+      ['proyectos', 'projects-title'],
+      ['metodo', 'working-title'],
+      ['contacto', 'contact-title']
+    ]) {
+      assert.match(html, new RegExp(`<section[^>]*id="${sectionId}"[^>]*aria-labelledby="${headingId}"`));
+      assert.match(html, new RegExp(`<h2 id="${headingId}"`));
+    }
+
+    assert.match(html, /<dl class="metrics-band"[^>]*data-motion-group="metrics"[^>]*aria-labelledby="metrics-title"/);
+    assert.equal((html.match(/<div class="metric"[^>]*data-reveal="metric"/g) ?? []).length, 4);
+
+    assert.match(html, /<div class="services-grid"[^>]*data-motion-group="services"[^>]*role="list"/);
+    assert.equal((html.match(/role="listitem"/g) ?? []).length, 3);
+    for (const serviceId of ['operations', 'automation', 'support']) {
+      assert.match(html, new RegExp(`id="service-${serviceId}"[^>]*role="listitem"[^>]*aria-labelledby="service-${serviceId}-title"`));
+      assert.match(html, new RegExp(`<h3 id="service-${serviceId}-title"`));
+    }
+
+    assert.match(html, /<div class="projects-list"[^>]*data-motion-group="projects"/);
+    assert.equal((html.match(/data-motion-item="project"/g) ?? []).length, 5);
+    assert.match(html, /<article[^>]*id="tusa"[^>]*aria-labelledby="tusa-title"/);
+    assert.match(html, /<h3 id="tusa-title"/);
+    assert.match(html, /<section aria-labelledby="tusa-problem-title"><h4 id="tusa-problem-title">/);
+    assert.match(html, /<aside class="evidence" aria-labelledby="tusa-evidence-title">/);
+    assert.match(html, /<img[^>]*loading="lazy"[^>]*decoding="async"/);
+
+    for (const [, labelledBy] of html.matchAll(/aria-labelledby="([^"]+)"/g)) {
+      for (const id of labelledBy.split(/\s+/)) {
+        assert.equal((html.match(new RegExp(`id="${id}"`, 'g')) ?? []).length, 1, `aria-labelledby target must resolve once: ${id}`);
+      }
+    }
+  }
+});
+
+test('SEO discovery files point to the published language routes', async () => {
+  const robots = await readFile(join(root, 'public', 'robots.txt'), 'utf8');
+  const sitemap = await readFile(join(root, 'public', 'sitemap.xml'), 'utf8');
+  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\n/m);
+  assert.match(robots, /Sitemap: https:\/\/zidk21\.github\.io\/portafolio\/sitemap\.xml/);
+  assert.match(sitemap, /<loc>https:\/\/zidk21\.github\.io\/portafolio\/<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/zidk21\.github\.io\/portafolio\/en\/<\/loc>/);
 });

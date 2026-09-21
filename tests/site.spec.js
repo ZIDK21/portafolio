@@ -67,6 +67,7 @@ test('pages have no serious accessibility violations or failed resources', async
   page.on('response', (response) => { if (response.status() >= 400) failures.push(`${response.status()} ${response.url()}`); });
   for (const path of ['./', './en/']) {
     await page.goto(path);
+    await expect(page.locator('[data-reveal="hero-copy"]')).toHaveCSS('opacity', '1');
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact))).toEqual([]);
   }
@@ -78,6 +79,7 @@ test('both languages reflow without page or navigation overflow', async ({ page 
     await page.setViewportSize({ width, height: 900 });
     for (const path of ['./', './en/']) {
       await page.goto(path);
+      await page.evaluate(() => document.fonts?.ready);
       const dimensions = await page.locator('html').evaluate((element) => ({
         clientWidth: element.clientWidth,
         scrollWidth: element.scrollWidth,
@@ -121,6 +123,36 @@ test('reveals content on entry and keeps section wayfinding current', async ({ p
   await expect(page.locator('.nav-links a[aria-current="location"]')).toHaveAttribute('href', '#servicios');
   const progressTransform = await page.locator('.scroll-progress').evaluate((element) => getComputedStyle(element).transform);
   expect(progressTransform).not.toBe('none');
+});
+
+test('hash navigation updates wayfinding immediately', async ({ page }) => {
+  await page.goto('./#inicio');
+  await page.evaluate(() => {
+    history.pushState(null, '', '#servicios');
+    dispatchEvent(new HashChangeEvent('hashchange'));
+  });
+  await expect(page.locator('.nav-links a[aria-current="location"]')).toHaveAttribute('href', '#servicios');
+});
+
+test('scroll progress uses native scroll-driven motion when available', async ({ page }) => {
+  await page.goto('./#inicio');
+  const progress = await page.locator('.scroll-progress').evaluate((element) => ({
+    inlineTransform: element.style.transform,
+    animationName: getComputedStyle(element).animationName,
+    supportsScrollTimeline: CSS.supports('animation-timeline: scroll()')
+  }));
+  expect(progress.inlineTransform).toBe('');
+  if (progress.supportsScrollTimeline) expect(progress.animationName).toContain('scroll-progress');
+});
+
+test('turning on reduced motion after load reveals pending content', async ({ page }) => {
+  await page.goto('./#inicio');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  const hiddenReveals = await page.locator('[data-reveal]').evaluateAll((elements) => elements.filter((element) => {
+    const styles = getComputedStyle(element);
+    return styles.opacity === '0' || styles.transform !== 'none';
+  }).length);
+  expect(hiddenReveals).toBe(0);
 });
 
 test('reduced motion keeps reveal content visible without movement', async ({ page }) => {

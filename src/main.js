@@ -1,16 +1,25 @@
 // Motion sobrio CSS-first: la página sigue completa sin JS, y cada reveal respeta las preferencias del sistema.
 document.documentElement.classList.add('js');
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+let reduce = motionQuery.matches;
 const revealElements = [...document.querySelectorAll('[data-reveal]')];
+let revealObserver = null;
 
 function showReveal(element) {
   element.classList.add('is-visible');
 }
 
-if (reduce || !('IntersectionObserver' in window)) {
+function showAllReveals() {
   revealElements.forEach(showReveal);
-} else {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
+}
+
+function observeReveals() {
+  if (reduce || !('IntersectionObserver' in window)) {
+    showAllReveals();
+    return;
+  }
+
+  revealObserver = new IntersectionObserver((entries, observer) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       showReveal(entry.target);
@@ -20,27 +29,25 @@ if (reduce || !('IntersectionObserver' in window)) {
   revealElements.forEach((element) => revealObserver.observe(element));
 }
 
+observeReveals();
+
+function onMotionPreferenceChange(event) {
+  reduce = event.matches;
+  if (!reduce) return;
+  revealObserver?.disconnect();
+  showAllReveals();
+}
+
+if (typeof motionQuery.addEventListener === 'function') {
+  motionQuery.addEventListener('change', onMotionPreferenceChange);
+} else {
+  motionQuery.addListener?.(onMotionPreferenceChange);
+}
+
 const languageLink = document.querySelector('[data-language-link]');
 const header = document.querySelector('.site-header');
 const scrollProgress = document.querySelector('.scroll-progress');
-
-let progressFrame = 0;
-function updateScrollProgress() {
-  progressFrame = 0;
-  if (!scrollProgress) return;
-  const maxScroll = document.documentElement.scrollHeight - innerHeight;
-  const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
-  scrollProgress.style.setProperty('--scroll-scale', progress.toFixed(4));
-}
-
-function requestScrollProgress() {
-  if (progressFrame) return;
-  progressFrame = requestAnimationFrame(updateScrollProgress);
-}
-
-addEventListener('scroll', requestScrollProgress, { passive: true });
-addEventListener('resize', requestScrollProgress, { passive: true });
-updateScrollProgress();
+const nativeScrollProgress = typeof CSS !== 'undefined' && CSS.supports('animation-timeline: scroll()');
 
 function currentSectionId() {
   let hashId = '';
@@ -49,7 +56,8 @@ function currentSectionId() {
   const hashElement = hashId ? document.getElementById(hashId) : null;
   if (hashElement) {
     const hashRect = hashElement.getBoundingClientRect();
-    if (hashRect.bottom > headerBottom + 1 && hashRect.top < innerHeight) return hashId;
+    const hashIsVisible = hashRect.bottom > headerBottom + 1 && hashRect.top < innerHeight;
+    if (hashIsVisible || performance.now() < preserveHashUntil) return hashId;
   }
 
   const candidates = [
@@ -77,6 +85,19 @@ function updateLanguageDestination() {
 
 const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
 const navSections = [...document.querySelectorAll('main > section[id]')];
+let preserveHashUntil = 0;
+const initialHashId = location.hash.slice(1);
+if (initialHashId && initialHashId !== navSections[0]?.id && document.getElementById(initialHashId)) {
+  preserveHashUntil = performance.now() + 1200;
+}
+
+function updateFallbackProgress(sectionId) {
+  if (!scrollProgress || nativeScrollProgress || reduce) return;
+  const index = navSections.findIndex((section) => section.id === sectionId);
+  const progress = index >= 0 && navSections.length > 1 ? index / (navSections.length - 1) : 0;
+  scrollProgress.style.transform = `scaleX(${progress.toFixed(4)})`;
+}
+
 const setActiveSection = (sectionId) => {
   navLinks.forEach((link) => {
     const isActive = link.getAttribute('href') === `#${sectionId}`;
@@ -84,6 +105,7 @@ const setActiveSection = (sectionId) => {
     if (isActive) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');
   });
+  updateFallbackProgress(sectionId);
 };
 
 function sectionFromHash() {
@@ -103,6 +125,12 @@ if ('IntersectionObserver' in window && navSections.length) {
   navSections.forEach((section) => sectionObserver.observe(section));
 }
 
+addEventListener('hashchange', () => {
+  preserveHashUntil = performance.now() + 1200;
+  setActiveSection(sectionFromHash());
+  updateLanguageDestination();
+});
+
 languageLink?.addEventListener('focus', updateLanguageDestination);
 languageLink?.addEventListener('pointerdown', updateLanguageDestination);
 languageLink?.addEventListener('click', updateLanguageDestination);
@@ -111,6 +139,21 @@ const dialog = document.querySelector('.image-dialog');
 const dialogImage = dialog?.querySelector('img');
 const closeButton = dialog?.querySelector('[data-dialog-close]');
 let dialogOpener = null;
+let dialogAnimation = null;
+
+function playDialogEntrance() {
+  if (!dialog || reduce || typeof dialog.animate !== 'function') return;
+  dialog.style.animation = 'none';
+  dialogAnimation?.cancel();
+  dialogAnimation = dialog.animate([
+    { opacity: 0, transform: 'scale(.985)' },
+    { opacity: 1, transform: 'scale(1)' }
+  ], {
+    duration: 180,
+    easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+    fill: 'both'
+  });
+}
 
 document.querySelectorAll('[data-evidence-link]').forEach((link) => {
   link.addEventListener('click', (event) => {
@@ -122,7 +165,9 @@ document.querySelectorAll('[data-evidence-link]').forEach((link) => {
     dialogOpener = link;
     dialogImage.src = link.href;
     dialogImage.alt = sourceImage.alt;
+    if (typeof dialog.animate === 'function') dialog.style.animation = 'none';
     dialog.showModal();
+    playDialogEntrance();
     closeButton?.focus();
   });
 });
@@ -135,6 +180,9 @@ dialog?.addEventListener('keydown', (event) => {
   }
 });
 dialog?.addEventListener('close', () => {
+  dialogAnimation?.cancel();
+  dialogAnimation = null;
+  dialog?.style.removeProperty('animation');
   dialogImage?.removeAttribute('src');
   if (dialogImage) dialogImage.alt = '';
   dialogOpener?.focus();
