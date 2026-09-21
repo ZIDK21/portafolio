@@ -46,7 +46,7 @@
     "items": [
       { "id": "operations", "image": "assets/services/operations.jpg", "alt": "Reference image: desk with documents and laptop", "title": "Assistance and operations", "description": "Orders, inventory, after-sales support, CRM, follow-up, and reporting that keep information organized." },
       { "id": "automation", "image": "assets/services/automation-v2.jpg", "alt": "Reference image: person organizing workflow on a laptop with a planner", "title": "Automation and integrations", "description": "Workflows with n8n, Zapier, Apps Script, APIs, and webhooks, with visible limits and human review." },
-      { "id": "support", "image": "assets/services/support-v3.jpg", "alt": "Reference image: support agent with a headset in front of a laptop", "title": "Windows technical support", "description": "Setup, troubleshooting, and remote support with AnyDesk and TeamViewer, with the observed steps documented." }
+      { "id": "support", "image": "assets/services/support-v4.jpg", "alt": "Reference image: headset hanging on a monitor over a desk", "title": "Windows technical support", "description": "Setup, troubleshooting, and remote support with AnyDesk and TeamViewer, with the observed steps documented." }
     ]
   },
   "projects": [
