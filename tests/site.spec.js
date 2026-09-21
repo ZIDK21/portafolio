@@ -112,3 +112,23 @@ test('reduced motion disables transitions', async ({page}) => {
   const t = await page.locator('.button-primary').evaluate(e => getComputedStyle(e).transitionDuration);
   expect(['0s', '0.01ms']).toContain(t);
 });
+
+test('reveals content on entry and keeps section wayfinding current', async ({ page }) => {
+  await page.goto('./#inicio');
+  await expect(page.locator('[data-reveal="hero-copy"]')).toHaveClass(/is-visible/);
+  await page.locator('#servicios').scrollIntoViewIfNeeded();
+  await expect(page.locator('#servicios .service').first()).toHaveClass(/is-visible/);
+  await expect(page.locator('.nav-links a[aria-current="location"]')).toHaveAttribute('href', '#servicios');
+  const progressTransform = await page.locator('.scroll-progress').evaluate((element) => getComputedStyle(element).transform);
+  expect(progressTransform).not.toBe('none');
+});
+
+test('reduced motion keeps reveal content visible without movement', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('./');
+  const hiddenReveals = await page.locator('[data-reveal]').evaluateAll((elements) => elements.filter((element) => {
+    const styles = getComputedStyle(element);
+    return styles.opacity === '0' || styles.transform !== 'none';
+  }).length);
+  expect(hiddenReveals).toBe(0);
+});

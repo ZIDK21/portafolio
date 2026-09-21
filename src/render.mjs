@@ -14,6 +14,16 @@ function safeAssetPath(value) {
 const renderList = (items, className, renderItem) =>
   `<ul class="${className}">${items.map(renderItem).join('')}</ul>`;
 
+const serviceIcons = {
+  operations: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7M4 7h16v12H4zM4 12h16M10 12v2h4v-2"/></svg>`,
+  automation: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="17" r="2"/><path d="M8 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3M6 9v8a3 3 0 0 0 3 3h7"/></svg>`,
+  support: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 13a8 8 0 0 1 16 0v2a2 2 0 0 1-2 2h-2v-5h4M4 14v1a2 2 0 0 0 2 2h2v-5H4M8 19h4a2 2 0 0 0 2-2"/></svg>`
+};
+
+function serviceIcon(id) {
+  return serviceIcons[id] ?? serviceIcons.operations;
+}
+
 export function renderPage(content, lang) {
   if (!['es', 'en'].includes(lang)) throw new Error(`Unsupported language: ${lang}`);
   const prefix = lang === 'en' ? '../' : './';
@@ -36,9 +46,9 @@ export function renderPage(content, lang) {
       ${escapeHtml(content.about.cv.label)}
     </a>` : '';
   const services = content.services.items.map((item, index) => `
-    <div class="service service-${index + 1}" id="service-${escapeHtml(item.id)}">
-      <img class="service-image" src="${prefix}${safeAssetPath(item.image)}" alt="${escapeHtml(item.alt)}" width="800" height="800" loading="lazy">
-      <h3>${escapeHtml(item.title)}</h3>
+    <div class="service service-${index + 1}" id="service-${escapeHtml(item.id)}" data-reveal="service">
+      <img class="service-image" src="${prefix}${safeAssetPath(item.image)}" alt="${escapeHtml(item.alt)}" width="800" height="800" loading="lazy" decoding="async">
+      <h3><span class="service-icon-wrap">${serviceIcon(item.id)}</span><span>${escapeHtml(item.title)}</span></h3>
       <p>${escapeHtml(item.description)}</p>
     </div>`).join('');
   const projects = content.projects.map((project, index) => {
@@ -54,7 +64,7 @@ export function renderPage(content, lang) {
       </div>` : '';
     const stack = renderList(project.stack, 'stack-list', (item) => `<li>${escapeHtml(item)}</li>`);
     return `
-      <article class="project project-${index + 1}" id="${escapeHtml(project.id)}">
+      <article data-reveal="project" class="project project-${index + 1}" data-project-index="${String(index + 1).padStart(2, '0')}" id="${escapeHtml(project.id)}">
         <header class="project-heading">
           <h3>${escapeHtml(project.title)}</h3>
           <p class="project-summary">${escapeHtml(project.summary)}</p>
@@ -92,11 +102,14 @@ export function renderPage(content, lang) {
   <meta name="theme-color" content="#f5f7fa">
   <title>${escapeHtml(content.meta.title)}</title>
   <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="${prefix}assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="${prefix}assets/fonts/Manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="${prefix}styles.css">
   <script type="module" src="${prefix}main.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">${escapeHtml(content.ui.skipLabel)}</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
     <nav class="site-nav container" aria-label="${escapeHtml(isEs ? 'Navegación principal' : 'Primary navigation')}">
       <a class="brand" href="#inicio" aria-label="JN, ${escapeHtml(content.hero.name)}">JN</a>
@@ -110,7 +123,7 @@ export function renderPage(content, lang) {
   <main id="main-content">
     <section class="hero section" id="inicio">
       <div class="container hero-grid">
-        <div class="hero-copy">
+        <div class="hero-copy" data-reveal="hero-copy">
           <p class="role">${escapeHtml(content.hero.role)}</p>
           <h1>${escapeHtml(content.hero.name)}</h1>
           <p class="hero-summary">${escapeHtml(content.hero.summary)}</p>
@@ -119,21 +132,21 @@ export function renderPage(content, lang) {
             <a class="button button-secondary" href="#contacto">${escapeHtml(content.hero.contactLabel)}</a>
           </div>
         </div>
-        <figure class="hero-portrait">
-          <img src="${prefix}assets/profile/portrait.jpg" alt="${escapeHtml(isEs ? 'Retrato de Jose Navas' : 'Portrait of Jose Navas')}" width="480" height="640" fetchpriority="high">
+        <figure class="hero-portrait" data-reveal="hero-portrait">
+          <img src="${prefix}assets/profile/portrait.jpg" alt="${escapeHtml(isEs ? 'Retrato de Jose Navas' : 'Portrait of Jose Navas')}" width="480" height="640" fetchpriority="high" decoding="sync">
         </figure>
       </div>
     </section>
     <section class="metrics-section section" id="resultados">
       <div class="container">
-        <h2>${escapeHtml(content.ui.metricsTitle)}</h2>
-        <dl class="metrics-band">${metrics}</dl>
+        <h2 data-reveal="metrics-title">${escapeHtml(content.ui.metricsTitle)}</h2>
+        <dl class="metrics-band">${metrics.replaceAll('<div class="metric"', '<div class="metric" data-reveal="metric"')}</dl>
       </div>
     </section>
     <section class="about section" id="sobre-mi">
       <div class="container about-grid">
-        <div class="about-intro"><h2>${escapeHtml(content.about.title)}</h2><p>${escapeHtml(content.about.summary)}</p>${cv}</div>
-        <div class="about-details">
+        <div class="about-intro" data-reveal="about-intro"><h2>${escapeHtml(content.about.title)}</h2><p>${escapeHtml(content.about.summary)}</p>${cv}</div>
+        <div class="about-details" data-reveal="about-details">
           <ol class="timeline">${timeline}</ol>
           <p class="education">${escapeHtml(content.about.education)}</p>
           ${certifications}
@@ -141,18 +154,18 @@ export function renderPage(content, lang) {
       </div>
     </section>
     <section class="services section" id="servicios">
-      <div class="container"><h2>${escapeHtml(content.services.title)}</h2><div class="services-grid">${services}</div></div>
+      <div class="container"><h2 data-reveal="services-title">${escapeHtml(content.services.title)}</h2><div class="services-grid">${services}</div></div>
     </section>
     <section class="projects section" id="proyectos">
-      <div class="container"><h2>${escapeHtml(content.ui.projectsTitle)}</h2><div class="projects-list">${projects}</div></div>
+      <div class="container"><h2 data-reveal="projects-title">${escapeHtml(content.ui.projectsTitle)}</h2><div class="projects-list">${projects}</div></div>
     </section>
     <section class="working section" id="metodo">
-      <div class="container working-panel"><h2>${escapeHtml(content.working.title)}</h2><div>${working}</div></div>
+      <div class="container working-panel" data-reveal="working"><h2>${escapeHtml(content.working.title)}</h2><div>${working}</div></div>
     </section>
     <section class="contact section" id="contacto">
       <div class="container contact-grid">
-        <div><h2>${escapeHtml(content.contact.title)}</h2><p>${escapeHtml(content.contact.summary)}</p></div>
-        <div class="contact-links">
+        <div data-reveal="contact-copy"><h2>${escapeHtml(content.contact.title)}</h2><p>${escapeHtml(content.contact.summary)}</p></div>
+        <div class="contact-links" data-reveal="contact-links">
           <a href="mailto:${escapeHtml(content.contact.emailLabel)}">${escapeHtml(content.contact.emailLabel)}</a>
           <a href="tel:${escapeHtml(telephone)}">${escapeHtml(content.contact.phoneLabel)}</a>
           <a href="https://www.linkedin.com/in/jose-navas21">${escapeHtml(content.contact.linkedinLabel)}</a>

@@ -1,9 +1,46 @@
-// Motion sobrio CSS-first: WAAPI/Motion solo bajo este guard; sin JS la pagina queda completa y el cambio de idioma nunca espera animacion.
+// Motion sobrio CSS-first: la página sigue completa sin JS, y cada reveal respeta las preferencias del sistema.
+document.documentElement.classList.add('js');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (!reduce && 'animate' in Element.prototype) { /* animación WAAPI/Motion aquí — solo springs/gestos imposibles en CSS; sin uso actual: press/dialog/hover ya cubiertos en CSS */ }
+const revealElements = [...document.querySelectorAll('[data-reveal]')];
+
+function showReveal(element) {
+  element.classList.add('is-visible');
+}
+
+if (reduce || !('IntersectionObserver' in window)) {
+  revealElements.forEach(showReveal);
+} else {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      showReveal(entry.target);
+      observer.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+  revealElements.forEach((element) => revealObserver.observe(element));
+}
 
 const languageLink = document.querySelector('[data-language-link]');
 const header = document.querySelector('.site-header');
+const scrollProgress = document.querySelector('.scroll-progress');
+
+let progressFrame = 0;
+function updateScrollProgress() {
+  progressFrame = 0;
+  if (!scrollProgress) return;
+  const maxScroll = document.documentElement.scrollHeight - innerHeight;
+  const progress = maxScroll > 0 ? Math.min(1, Math.max(0, scrollY / maxScroll)) : 0;
+  scrollProgress.style.setProperty('--scroll-scale', progress.toFixed(4));
+}
+
+function requestScrollProgress() {
+  if (progressFrame) return;
+  progressFrame = requestAnimationFrame(updateScrollProgress);
+}
+
+addEventListener('scroll', requestScrollProgress, { passive: true });
+addEventListener('resize', requestScrollProgress, { passive: true });
+updateScrollProgress();
 
 function currentSectionId() {
   let hashId = '';
@@ -36,6 +73,34 @@ function updateLanguageDestination() {
   const destination = new URL(languageLink.getAttribute('href'), location.href);
   destination.hash = currentSectionId();
   languageLink.href = destination.href;
+}
+
+const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+const navSections = [...document.querySelectorAll('main > section[id]')];
+const setActiveSection = (sectionId) => {
+  navLinks.forEach((link) => {
+    const isActive = link.getAttribute('href') === `#${sectionId}`;
+    link.classList.toggle('is-active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+};
+
+function sectionFromHash() {
+  const hash = location.hash.slice(1);
+  const target = hash ? document.getElementById(hash) : null;
+  return target?.closest('main > section[id]')?.id || (navSections[0]?.id ?? 'inicio');
+}
+
+setActiveSection(sectionFromHash());
+if ('IntersectionObserver' in window && navSections.length) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible[0]) setActiveSection(visible[0].target.id);
+  }, { rootMargin: '-42% 0px -48% 0px', threshold: [0, 0.2, 0.5] });
+  navSections.forEach((section) => sectionObserver.observe(section));
 }
 
 languageLink?.addEventListener('focus', updateLanguageDestination);

@@ -270,4 +270,12 @@ test('renderer emits complete semantic ES and EN documents with portable resourc
   assert.doesNotMatch(enHtml, /undefined|null|C:\\Users|file:\/\//i);
   assert.equal((esHtml.match(/<h1\b/g) ?? []).length, 1);
   assert.equal((enHtml.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(esHtml, /class="scroll-progress"/);
+  assert.match(enHtml, /class="scroll-progress"/);
+  assert.match(esHtml, /data-reveal="hero-copy"/);
+  assert.match(enHtml, /data-reveal="hero-copy"/);
+  assert.match(esHtml, /class="service-icon"/);
+  assert.match(enHtml, /class="service-icon"/);
+  assert.match(esHtml, /rel="preload" href="\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
+  assert.match(enHtml, /rel="preload" href="\.\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
 });
