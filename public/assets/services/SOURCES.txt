@@ -5,8 +5,8 @@ Photographer credit lives on each source page below.
 
 - operations.jpg: desk with documents, magnifier and laptop.
   Source: https://www.pexels.com/photo/documents-on-table-8927453/
-- automation.jpg: overhead desk with laptop, planner and coffee (workflow).
-  Source: https://www.pexels.com/photo/computer-desk-hand-laptop-374631/
+- automation-v3.jpg: modern programmer workspace with digital code on screen.
+  Source: https://www.pexels.com/photo/modern-programmer-workspace-with-digital-code-33349204/
 - support-v4.jpg: black headset hanging on a monitor over a desk.
   Source: https://www.pexels.com/photo/black-headset-hanged-on-a-monitor-8867217/
 
