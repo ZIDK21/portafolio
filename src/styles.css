@@ -105,7 +105,7 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .service { overflow: hidden; padding: 0 0 clamp(1.25rem, 2.5vw, 1.75rem); border: 1px solid var(--border-on-dark); border-radius: var(--radius-panel); background: var(--surface-dark-soft); }
 .service-1 { grid-column: 1 / span 6; }
 .service-2 { grid-column: 8 / span 5; margin-top: clamp(2rem, 7vw, 6rem); }
-.service-3 { grid-column: 3 / span 4; margin-top: clamp(1rem, 4vw, 3rem); }
+.service-3 { grid-column: 3 / span 5; margin-top: clamp(1rem, 4vw, 3rem); }
 .service-image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 .service h3 { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: .65rem; margin: var(--space-2) var(--space-2) .75rem; }
 .service-icon-wrap { width: 2.55rem; height: 2.55rem; display: grid; place-items: center; border: 1px solid var(--border-on-dark); border-radius: .75rem; background: rgb(255 255 255 / .06); color: var(--accent-on-dark); }
