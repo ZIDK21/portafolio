@@ -1,6 +1,30 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('language control keeps a fixed ES/EN track and marks its active stop', async ({ page }) => {
+  await page.goto('./#inicio');
+
+  let switcher = page.locator('.language-switcher');
+  await expect(switcher).toHaveAttribute('data-language', 'es');
+  await expect(switcher.locator('[data-language-option]')).toHaveCount(2);
+  await expect(switcher.locator('[data-language-option="es"]')).toHaveAttribute('aria-current', 'page');
+  await expect(switcher.locator('[data-language-option="en"]')).toHaveText('English');
+  await expect(switcher.locator('.language-indicator')).toHaveCSS('view-transition-name', 'language-indicator');
+
+  const esPosition = await switcher.locator('[data-language-option="es"]').evaluate((element) => element.getBoundingClientRect().left);
+  const enPosition = await switcher.locator('[data-language-option="en"]').evaluate((element) => element.getBoundingClientRect().left);
+  expect(esPosition).toBeLessThan(enPosition);
+
+  await page.getByRole('link', { name: 'English', exact: true }).click();
+  await expect(page).toHaveURL(/\/en\/#inicio$/);
+
+  switcher = page.locator('.language-switcher');
+  await expect(switcher).toHaveAttribute('data-language', 'en');
+  await expect(switcher.locator('[data-language-option="en"]')).toHaveAttribute('aria-current', 'page');
+  await expect(switcher.locator('[data-language-option="es"]')).toHaveText('Español');
+  await expect(switcher.locator('.language-indicator')).toHaveCSS('view-transition-name', 'language-indicator');
+});
+
 test('language preserves the selected case in both directions', async ({ page }) => {
   await page.goto('./#dlro');
   await expect(page.locator('#dlro')).toBeInViewport();

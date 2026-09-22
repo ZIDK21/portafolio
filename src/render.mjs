@@ -37,8 +37,10 @@ export function renderPage(content, lang) {
   if (!['es', 'en'].includes(lang)) throw new Error(`Unsupported language: ${lang}`);
   const prefix = lang === 'en' ? '../' : './';
   const otherHref = lang === 'en' ? '../' : './en/';
-  const otherLabel = lang === 'en' ? 'Español' : 'English';
   const isEs = lang === 'es';
+  const languageOptions = isEs
+    ? `<span class="language-option" data-language-option="es" lang="es" aria-current="page">Español</span><a class="language-option" href="${otherHref}" data-language-link data-language-option="en" lang="en">English</a>`
+    : `<a class="language-option" href="${otherHref}" data-language-link data-language-option="es" lang="es">Español</a><span class="language-option" data-language-option="en" lang="en" aria-current="page">English</span>`;
   const canonicalUrl = `${siteOrigin}${isEs ? '/' : '/en/'}`;
   const spanishUrl = `${siteOrigin}/`;
   const englishUrl = `${siteOrigin}/en/`;
@@ -160,9 +162,9 @@ export function renderPage(content, lang) {
     <nav class="site-nav container" aria-label="${escapeHtml(isEs ? 'Navegación principal' : 'Primary navigation')}">
       <a class="brand" href="#inicio" aria-label="JN, ${escapeHtml(content.hero.name)}">JN</a>
       <ul class="nav-links">${navLinks}</ul>
-      <div class="language-switcher" aria-label="${escapeHtml(content.ui.languageLabel)}">
-        <span aria-current="page">${lang.toUpperCase()}</span>
-        <a href="${otherHref}" data-language-link>${otherLabel}</a>
+      <div class="language-switcher" role="group" aria-label="${escapeHtml(content.ui.languageLabel)}" data-language="${lang}">
+        <span class="language-indicator" aria-hidden="true"></span>
+        ${languageOptions}
       </div>
     </nav>
   </header>
