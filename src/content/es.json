@@ -57,6 +57,13 @@
       "problem": "No había plantillas comunes para comparar gasto, mensajes, mesas y personas entre sedes y horarios. Además, parte de las fotos y videos llegaba fuera del formato pedido por Meta.",
       "action": "Construí y documenté plantillas en Google Sheets y Excel. Reuní los datos de Meta Ads y el movimiento en sede a las 3 PM y 10 PM, comparé las cuatro sedes y envié cada reporte al grupo de WhatsApp de la empresa.",
       "result": "Mantuve 135 cortes con los mismos campos y horarios. El periodo registró 11.600 mensajes y 6.800 personas en sede, con unos 86 mensajes y 51 personas por reporte. El detalle por campaña permanece interno.",
+      "technical": [
+        {
+          "concept": "Cortes comparables por horario",
+          "detail": "Plantillas de Google Sheets y Excel reúnen datos de Meta Ads y actividad en las cuatro sedes a las 3 PM y 10 PM.",
+          "benefit": "Mantienen comparables los 135 cortes con los mismos campos y horarios."
+        }
+      ],
       "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
       "evidence": {
         "caption": "Evidencia textual trazable al caso TUSA MX; el material visual no se publica por contener datos personales.",
@@ -73,6 +80,18 @@
       "problem": "La misma fecha y su contexto se copiaban y mantenían en dos sistemas. Ese trabajo repetido podía dejar una actualización o una entrega sin reflejar.",
       "action": "Configuré un flujo unidireccional en Google Apps Script. Consulta Notion por páginas (la paginación significa pedir los registros por bloques hasta cubrirlos todos), crea, actualiza o retira eventos de día completo y devuelve solo el identificador del evento (ID), el estado y la fecha de sincronización. No reescribe los campos académicos.",
       "result": "La carga diaria pasó de 5-10 a 2-3 minutos porque cada fecha se registra una sola vez. No se observaron fallos durante el periodo de uso; el flujo quedó pausado entre semestres y la revisión disponible del código es estática, sin trigger activo demostrado.",
+      "technical": [
+        {
+          "concept": "Sincronización unidireccional de eventos",
+          "detail": "Google Apps Script consulta Notion por páginas y crea, actualiza o retira eventos de día completo en Google Calendar.",
+          "benefit": "Permite registrar cada fecha una vez, en lugar de mantenerla en ambos sistemas."
+        },
+        {
+          "concept": "Escritura de retorno limitada",
+          "detail": "El flujo devuelve solo el ID del evento, el estado y la fecha de sincronización; no reescribe campos académicos.",
+          "benefit": "Mantiene intactos los campos académicos durante la sincronización."
+        }
+      ],
       "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
       "evidence": {
         "caption": "Evidencia textual trazable al caso y a la estructura verificada; el material visual del PDF se reserva para proteger el contexto académico.",
@@ -89,6 +108,18 @@
       "problem": "El proceso manual dejaba valores en blanco, separaba mal Comments, perdía símbolos y podía aplanar la estructura de cajas. Todo debía funcionar sin red ni servidor.",
       "action": "Automaticé la edición por zonas (cada campo se reescribe solo dentro de su recuadro) sobre copias temporales, conservé la revisión resultado por resultado por seguridad eléctrica y añadí ocho pestañas, vista previa por fila y exportación ZIP con verificación antes y después.",
       "result": "Las regresiones E1-E4 (las cuatro pruebas automáticas de errores conocidos) quedaron cubiertas. La ejecución documentada tuvo 238 verificaciones aprobadas y 2 omitidas; el ZIP se revisa completo y los originales permanecen intactos. El EXE se verificó en el equipo de trabajo, sin despliegue multi-equipo demostrado.",
+      "technical": [
+        {
+          "concept": "Edición por zonas",
+          "detail": "Cada campo se reescribe solo en su recuadro y sobre copias temporales.",
+          "benefit": "Los reportes originales permanecen intactos."
+        },
+        {
+          "concept": "Revisión y exportación verificables",
+          "detail": "El flujo ofrece ocho pestañas, vista previa por fila y exportación ZIP con verificación antes y después.",
+          "benefit": "Permite revisar cada resultado y comprobar el ZIP completo."
+        }
+      ],
       "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
       "evidence": {
         "caption": "Evidencia textual trazable al caso de 110 PDFs; el material visual del PDF del cliente no se publica.",
@@ -105,6 +136,18 @@
       "problem": "El intercambio anterior dejaba dudas sobre almacenamiento, enlaces, reanudación de subidas, recuperación de metadatos y exposición de datos personales.",
       "action": "Construí una aplicación web local con iniciador para Windows y pasarela HTTPS. Guarda archivos y metadatos en local (los binarios son los archivos tal cual), divide subidas en fragmentos, valida SHA-256 (una huella que detecta si un archivo cambió), genera enlaces individuales y QR, y permite descargas por rangos HTTP (reanudar desde donde se cortó).",
       "result": "La comunidad pasó de compartir mediante servicios externos a usar almacenamiento bajo control del propietario, enlaces directos y recuperación local. El instalador Stable 0.5.1 se verificó en el equipo de trabajo. No se afirma velocidad medida, disponibilidad permanente ni respaldo fuera del equipo.",
+      "technical": [
+        {
+          "concept": "Carga por fragmentos y SHA-256",
+          "detail": "La aplicación divide las subidas en fragmentos y valida la huella SHA-256 del archivo.",
+          "benefit": "La huella permite detectar si el archivo cambió."
+        },
+        {
+          "concept": "Descarga por rangos HTTP",
+          "detail": "La aplicación genera enlaces individuales y QR y permite descargas por rangos HTTP.",
+          "benefit": "Una descarga puede reanudarse desde donde se interrumpió."
+        }
+      ],
       "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
       "evidence": {
         "caption": "Evidencia textual del proyecto propio; el material visual del PDF se reserva por contener datos personales.",
@@ -121,6 +164,18 @@
       "problem": "La conectividad IP y la resolución DNS se estaban confundiendo. La evidencia original disponible no incluye una captura del navegador ni del Event Viewer, por eso esas vistas se mantienen identificadas como reconstruidas o conceptuales.",
       "action": "Separé conectividad IP de resolución de nombres, relacioné el fallo con una política persistente de ProtonVPN en el almacén DnsPolicyConfig, documenté la eliminación de la política y limpié la caché del resolver.",
       "result": "La verificación documentada registra una consulta nslookup google.com atendida por dns.google en 8.8.8.8. Desactivar la conexión automática de ProtonVPN fue parte de la prevención descrita; no se presenta como una solución universal.",
+      "technical": [
+        {
+          "concept": "Conectividad IP y resolución DNS",
+          "detail": "El adaptador seguía conectado y ping funcionaba, pero el navegador y las aplicaciones no resolvían dominios.",
+          "benefit": "Aísla la falla de resolución de nombres de la conectividad IP."
+        },
+        {
+          "concept": "Verificación con nslookup",
+          "detail": "La verificación registrada muestra nslookup google.com atendido por dns.google en 8.8.8.8; la intervención incluyó retirar la política persistente de ProtonVPN y limpiar la caché.",
+          "benefit": "Confirma la resolución en este caso documentado, sin presentarla como solución universal."
+        }
+      ],
       "stack": ["Windows 10", "ProtonVPN", "DNS Client", "Registro de Windows", "ipconfig", "nslookup"],
       "evidence": {
         "caption": "Portada de la presentación técnica del caso DNS; las etiquetas distinguen evidencia fuente de vistas reconstruidas.",
@@ -158,6 +213,10 @@
     "problemLabel": "Problema",
     "actionLabel": "Intervención",
     "resultLabel": "Resultado",
+    "technicalLabel": "Detalle técnico",
+    "conceptLabel": "Concepto",
+    "detailLabel": "Detalle",
+    "benefitLabel": "Beneficio",
     "stackLabel": "Herramientas",
     "evidenceLabel": "Evidencia",
     "pdfLabel": "Descargas",

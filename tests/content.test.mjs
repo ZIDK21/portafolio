@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { extname, join, relative, resolve } from 'node:path';
-import { renderPage } from '../src/render.mjs';
+import { escapeHtml, renderPage } from '../src/render.mjs';
 
 const root = process.cwd();
 const jobKnowledgeRoot = process.env.JOB_KNOWLEDGE_ROOT
@@ -96,6 +96,7 @@ const visibleText = (content) => {
     content.services.title, ...content.services.items.flatMap((item) => [item.title, item.description]),
     ...content.projects.flatMap((project) => [
       project.title, project.summary, project.problem, project.action, project.result,
+      ...project.technical.flatMap((point) => [point.concept, point.detail, point.benefit]),
       ...project.stack, project.evidence.caption, project.evidence.provenance,
       ...project.downloads.map((download) => download.label)
     ]),
@@ -138,11 +139,50 @@ test('five matching case IDs in both languages', async () => {
   assert.deepEqual(en.projects.map((project) => project.id), ids);
 });
 
+test('every public case renders a bilingual technical section with concept, detail, and benefit', async () => {
+  const es = await load('es');
+  const en = await load('en');
+  const labels = [
+    ['technicalLabel', 'Detalle técnico', 'Technical details'],
+    ['conceptLabel', 'Concepto', 'Concept'],
+    ['detailLabel', 'Detalle', 'Detail'],
+    ['benefitLabel', 'Beneficio', 'Benefit']
+  ];
+
+  for (const [content, lang] of [[es, 'es'], [en, 'en']]) {
+    for (const [key] of labels) assert.ok(content.ui[key]?.trim(), `${lang}: missing ${key}`);
+    for (const project of content.projects) {
+      assert.ok(Array.isArray(project.technical) && project.technical.length > 0, `${lang}/${project.id}: missing technical points`);
+      for (const point of project.technical) {
+        assert.deepEqual(Object.keys(point).sort(), ['benefit', 'concept', 'detail']);
+        for (const field of ['concept', 'detail', 'benefit']) assert.ok(point[field].trim(), `${lang}/${project.id}: empty ${field}`);
+      }
+    }
+  }
+
+  for (const index of es.projects.keys()) {
+    assert.equal(es.projects[index].technical.length, en.projects[index].technical.length, `${es.projects[index].id}: ES/EN point count`);
+  }
+
+  const esHtml = renderPage(es, 'es');
+  const enHtml = renderPage(en, 'en');
+  for (const [html, content, lang] of [[esHtml, es, 'es'], [enHtml, en, 'en']]) {
+    assert.equal((html.match(/class="technical-section"/g) ?? []).length, ids.length, `${lang}: one technical section per case`);
+    assert.equal((html.match(/class="technical-point"/g) ?? []).length, content.projects.reduce((sum, project) => sum + project.technical.length, 0), `${lang}: every technical point rendered`);
+    for (const [key] of labels) assert.ok(html.includes(content.ui[key]), `${lang}: rendered ${key} label`);
+    for (const project of content.projects) {
+      for (const point of project.technical) {
+        for (const value of Object.values(point)) assert.ok(html.includes(escapeHtml(value)), `${lang}/${project.id}: rendered technical text`);
+      }
+    }
+  }
+});
+
 test('bilingual content follows the shared contract, privacy policy, and visible-claim parity', async () => {
   const es = await load('es');
   const en = await load('en');
   const topKeys = ['meta', 'nav', 'hero', 'metrics', 'about', 'services', 'projects', 'working', 'contact', 'ui'];
-  const projectKeys = ['id', 'title', 'summary', 'problem', 'action', 'result', 'stack', 'evidence', 'downloads'];
+  const projectKeys = ['id', 'title', 'summary', 'problem', 'action', 'result', 'technical', 'stack', 'evidence', 'downloads'];
   const sensitive = /(?:av(?:enida)?\.?\s+intercomunal|sector\s+dividive|(?<![A-Za-z0-9_])[A-Za-z]:[\\/]|file:\/\/|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|10\.2\.0\.1)/i;
 
   for (const [lang, content] of [['es', es], ['en', en]]) {

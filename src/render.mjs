@@ -92,6 +92,14 @@ export function renderPage(content, lang) {
         ${project.downloads.map((download) => `<a href="${prefix}${safeAssetPath(download.href)}" download>${escapeHtml(download.label)}</a>`).join('')}
       </div>` : '';
     const stack = renderList(project.stack, 'stack-list', (item) => `<li>${escapeHtml(item)}</li>`);
+    const technical = renderList(project.technical, 'technical-points', (point) => `
+      <li class="technical-point">
+        <dl class="technical-facts">
+          <div><dt>${escapeHtml(content.ui.conceptLabel)}</dt><dd>${escapeHtml(point.concept)}</dd></div>
+          <div><dt>${escapeHtml(content.ui.detailLabel)}</dt><dd>${escapeHtml(point.detail)}</dd></div>
+          <div><dt>${escapeHtml(content.ui.benefitLabel)}</dt><dd>${escapeHtml(point.benefit)}</dd></div>
+        </dl>
+      </li>`);
     return `
       <article data-reveal="project" data-motion-item="project" class="project project-${index + 1}" data-project-index="${String(index + 1).padStart(2, '0')}" id="${escapeHtml(project.id)}" aria-labelledby="${projectTitleId}">
         <header class="project-heading">
@@ -103,6 +111,7 @@ export function renderPage(content, lang) {
             <section aria-labelledby="${sectionTitleId('problem')}"><h4 id="${sectionTitleId('problem')}">${escapeHtml(content.ui.problemLabel)}</h4><p>${escapeHtml(project.problem)}</p></section>
             <section aria-labelledby="${sectionTitleId('action')}"><h4 id="${sectionTitleId('action')}">${escapeHtml(content.ui.actionLabel)}</h4><p>${escapeHtml(project.action)}</p></section>
             <section aria-labelledby="${sectionTitleId('result')}"><h4 id="${sectionTitleId('result')}">${escapeHtml(content.ui.resultLabel)}</h4><p>${escapeHtml(project.result)}</p></section>
+            <section class="technical-section" aria-labelledby="${sectionTitleId('technical')}"><h4 id="${sectionTitleId('technical')}">${escapeHtml(content.ui.technicalLabel)}</h4>${technical}</section>
             <section aria-labelledby="${sectionTitleId('stack')}"><h4 id="${sectionTitleId('stack')}">${escapeHtml(content.ui.stackLabel)}</h4>${stack}</section>
           </div>
           <aside class="evidence" aria-labelledby="${sectionTitleId('evidence')}">

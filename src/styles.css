@@ -127,6 +127,13 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .project-copy section { align-self: start; }
 .project-copy h4, .evidence h4 { margin-bottom: .75rem; color: var(--accent); }
 .project-copy p { margin: 0; color: var(--text-muted); }
+.project-copy .technical-section { grid-column: 1 / -1; padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--surface-muted); }
+.technical-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: .75rem; }
+.technical-point { padding: .9rem; border: 1px solid var(--border); border-radius: .85rem; background: var(--surface); }
+.technical-facts { display: grid; gap: .65rem; }
+.technical-facts > div { display: grid; grid-template-columns: minmax(4.5rem, .25fr) 1fr; gap: .2rem .65rem; }
+.technical-facts dt { color: var(--accent); font: 700 .7rem/1.4 var(--font-display); letter-spacing: .05em; text-transform: uppercase; }
+.technical-facts dd { margin: 0; color: var(--text-muted); font-size: .85rem; line-height: 1.5; overflow-wrap: anywhere; }
 .stack-list { display: flex; flex-wrap: wrap; gap: .5rem; }
 .stack-list li { padding: .42rem .7rem; border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-muted); font: 650 .73rem/1.2 var(--font-display); }
 .evidence { align-self: start; padding: var(--space-3); border-radius: var(--radius-panel); background: var(--surface-muted); }
@@ -139,6 +146,10 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .project-1 .project-heading { border-color: var(--border-on-dark); }
 .project-1 .project-summary, .project-1 .project-copy p { color: var(--text-muted-dark); }
 .project-1 .project-copy h4, .project-1 .evidence h4 { color: var(--accent-on-dark); }
+.project-1 .technical-section { border-color: var(--border-on-dark); background: var(--surface-dark-soft); }
+.project-1 .technical-point { border-color: var(--border-on-dark); background: rgb(255 255 255 / .04); }
+.project-1 .technical-facts dt { color: var(--accent-on-dark); }
+.project-1 .technical-facts dd { color: var(--text-muted-dark); }
 .project-1 .stack-list li { border-color: var(--border-on-dark); background: rgb(255 255 255 / .08); }
 .project-1 .evidence { background: var(--surface-dark-soft); }
 .project-1 .evidence-caption { color: var(--text-on-dark); }

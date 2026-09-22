@@ -57,6 +57,13 @@
       "problem": "There were no shared templates to compare spend, messages, tables at the venue, and on-site visitors across venues and times. Ad photos and videos also arrived outside Meta's requested format.",
       "action": "I built and documented Google Sheets and Excel templates. I collected Meta Ads and on-site movement at 3 PM and 10 PM, compared all four venues, and sent each report to the company WhatsApp group.",
       "result": "I maintained 135 cuts with the same fields and schedule. The period recorded 11,600 messages and 6,800 visitors, with about 86 messages and 51 visitors per report. Per-campaign detail stays internal.",
+      "technical": [
+        {
+          "concept": "Schedule-based comparable reporting",
+          "detail": "Google Sheets and Excel templates bring together Meta Ads data and activity across the four venues at 3 PM and 10 PM.",
+          "benefit": "Keeps the 135 cuts comparable with the same fields and schedule."
+        }
+      ],
       "stack": ["Meta Ads", "Meta Business Manager", "Google Sheets", "Excel", "Google Workspace", "WhatsApp"],
       "evidence": {
         "caption": "Text evidence traced to the TUSA MX case; visual material is not published because it contains personal data.",
@@ -73,6 +80,18 @@
       "problem": "The same date and context had to be copied and maintained in two systems. Repeated work made it easier to miss an update or a due date.",
       "action": "I set up a one-way Google Apps Script flow. It queries Notion page by page (pagination means requesting records in blocks until all are covered), creates, updates, or removes all-day events, and writes back only the event identifier (ID), status, and sync date. It does not rewrite academic fields.",
       "result": "The daily load went from 5-10 to 2-3 minutes because each date is entered once. No failures were observed during the use period; the flow paused between semesters, and the available code review is static with no active trigger demonstrated.",
+      "technical": [
+        {
+          "concept": "One-way event sync",
+          "detail": "Google Apps Script queries Notion page by page and creates, updates, or removes all-day Google Calendar events.",
+          "benefit": "Lets each date be entered once instead of maintained in both systems."
+        },
+        {
+          "concept": "Limited write-back",
+          "detail": "The flow writes back only the event ID, status, and sync date; it does not rewrite academic fields.",
+          "benefit": "Keeps academic fields unchanged during sync."
+        }
+      ],
       "stack": ["Google Apps Script", "Notion API", "Google Calendar API v3", "JavaScript", "JSON", "Script Properties"],
       "evidence": {
         "caption": "Text evidence traced to the case and its checked structure; PDF visuals are withheld to protect the academic context.",
@@ -89,6 +108,18 @@
       "problem": "The manual process left values blank, misplaced the Comments block, lost symbols, and could flatten the box structure. Everything had to run without a network or server.",
       "action": "I automated zone-based editing (each field is rewritten only inside its own box) on temporary copies, kept the review result by result for electrical safety, and added eight tabs, a per-row preview, and a ZIP export with integrity checks before and after.",
       "result": "Regressions E1-E4 (the four automated tests for known errors) are covered. The documented run had 238 approved checks and 2 skipped; the ZIP is checked as a whole and originals remain untouched. The EXE was verified on the work machine, with no multi-machine rollout demonstrated.",
+      "technical": [
+        {
+          "concept": "Zone-based editing",
+          "detail": "Each field is rewritten only inside its own box and on temporary copies.",
+          "benefit": "The original reports remain untouched."
+        },
+        {
+          "concept": "Reviewable batch export",
+          "detail": "The workflow provides eight tabs, a per-row preview, and ZIP export with checks before and after.",
+          "benefit": "Supports result-by-result review and whole-ZIP verification."
+        }
+      ],
       "stack": ["Python 3.12", "PyMuPDF", "pywebview", "PyInstaller", "pytest", "Windows 10/11"],
       "evidence": {
         "caption": "Text evidence traced to the 110-PDF case; client-PDF visuals are not published.",
@@ -105,6 +136,18 @@
       "problem": "The previous sharing flow left open questions about storage, links, upload resumption, metadata recovery, and personal-data exposure.",
       "action": "I built a local web app with a Windows launcher and HTTPS gateway. It stores files and metadata locally (binaries are the raw files), splits uploads into chunks, checks SHA-256 (a fingerprint that detects whether a file changed), creates single links and QR codes, and supports HTTP range downloads (resuming where they stopped).",
       "result": "The community moved from outside services to owner-controlled storage, direct links, and local recovery. The Stable 0.5.1 installer was verified on the work machine. No measured speed, permanent availability, or off-machine backup is claimed.",
+      "technical": [
+        {
+          "concept": "Chunked uploads and SHA-256",
+          "detail": "The app splits uploads into chunks and checks the file's SHA-256 fingerprint.",
+          "benefit": "The fingerprint can detect whether a file changed."
+        },
+        {
+          "concept": "HTTP range downloads",
+          "detail": "The app creates individual links and QR codes and supports HTTP range downloads.",
+          "benefit": "A download can resume from where it was interrupted."
+        }
+      ],
       "stack": ["Next.js", "React", "TypeScript", "Node.js", "SHA-256", "C#/.NET", "WebView2", "Cloudflare Tunnel"],
       "evidence": {
         "caption": "Text evidence from this personal project; PDF visuals are withheld because they contain personal data.",
@@ -121,6 +164,18 @@
       "problem": "IP connectivity and DNS resolution were being treated as the same problem. The original evidence does not include a browser-failure or Event Viewer screenshot, so those views remain labeled as recreated or conceptual.",
       "action": "I separated IP connectivity from name resolution, linked the failure to a persistent ProtonVPN policy in the DnsPolicyConfig store, documented its removal, and flushed the resolver cache.",
       "result": "The documented verification records an nslookup google.com response from dns.google at 8.8.8.8. Disabling ProtonVPN auto-connect was part of the described prevention; this is not presented as a universal fix.",
+      "technical": [
+        {
+          "concept": "IP connectivity and DNS resolution",
+          "detail": "The adapter remained connected and ping worked, but browsers and apps could not resolve domains.",
+          "benefit": "Separates name-resolution failure from IP connectivity."
+        },
+        {
+          "concept": "nslookup verification",
+          "detail": "The recorded check shows nslookup google.com answered by dns.google at 8.8.8.8; the documented intervention removed the persistent ProtonVPN policy and cleared the cache.",
+          "benefit": "Confirms resolution in this documented case without presenting it as a universal fix."
+        }
+      ],
       "stack": ["Windows 10", "ProtonVPN", "DNS Client", "Windows Registry", "ipconfig", "nslookup"],
       "evidence": {
         "caption": "Cover of the technical DNS case presentation; labels distinguish source evidence from recreated views.",
@@ -158,6 +213,10 @@
     "problemLabel": "Problem",
     "actionLabel": "Action",
     "resultLabel": "Result",
+    "technicalLabel": "Technical details",
+    "conceptLabel": "Concept",
+    "detailLabel": "Detail",
+    "benefitLabel": "Benefit",
     "stackLabel": "Tools",
     "evidenceLabel": "Evidence",
     "pdfLabel": "Downloads",
