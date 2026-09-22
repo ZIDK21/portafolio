@@ -170,8 +170,8 @@ export function renderPage(content, lang) {
     <section class="hero section" id="inicio" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-copy" data-reveal="hero-copy">
-          <p class="role">${escapeHtml(content.hero.role)}</p>
           <h1 id="hero-title">${escapeHtml(content.hero.name)}</h1>
+          <p class="role">${escapeHtml(content.hero.role)}</p>
           <p class="hero-summary" id="hero-summary">${escapeHtml(content.hero.summary)}</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#proyectos">${escapeHtml(content.hero.projectsLabel)}</a>
