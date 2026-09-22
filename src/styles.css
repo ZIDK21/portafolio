@@ -113,7 +113,7 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
 .service-image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
 .service h3 { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: .65rem; margin: var(--space-2) var(--space-2) .75rem; }
 .service-icon-wrap { width: 2.55rem; height: 2.55rem; display: grid; place-items: center; border: 1px solid var(--border-on-dark); border-radius: .75rem; background: rgb(255 255 255 / .06); color: var(--accent-on-dark); }
-.service-icon { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+.service-icon { display: block; width: 1.35rem; height: 1.35rem; object-fit: contain; }
 .service p { margin: 0 var(--space-2); color: var(--text-muted-dark); }
 
 .projects > .container > h2 { max-width: 10ch; margin-bottom: var(--space-6); }

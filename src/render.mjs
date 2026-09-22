@@ -24,13 +24,14 @@ const renderList = (items, className, renderItem) =>
   `<ul class="${className}">${items.map(renderItem).join('')}</ul>`;
 
 const serviceIcons = {
-  operations: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7M4 7h16v12H4zM4 12h16M10 12v2h4v-2"/></svg>`,
-  automation: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="17" r="2"/><path d="M8 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3M6 9v8a3 3 0 0 0 3 3h7"/></svg>`,
-  support: `<svg class="service-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 13a8 8 0 0 1 16 0v2a2 2 0 0 1-2 2h-2v-5h4M4 14v1a2 2 0 0 0 2 2h2v-5H4M8 19h4a2 2 0 0 0 2-2"/></svg>`
+  operations: 'briefcase-business.svg',
+  automation: 'workflow.svg',
+  support: 'headset.svg'
 };
 
-function serviceIcon(id) {
-  return serviceIcons[id] ?? serviceIcons.operations;
+function serviceIcon(id, prefix) {
+  const icon = serviceIcons[id] ?? serviceIcons.operations;
+  return `<img class="service-icon" src="${prefix}icons/${icon}" alt="" aria-hidden="true" width="24" height="24" decoding="async">`;
 }
 
 export function renderPage(content, lang) {
@@ -74,7 +75,7 @@ export function renderPage(content, lang) {
   const services = content.services.items.map((item, index) => `
     <div class="service service-${index + 1}" id="service-${escapeHtml(item.id)}" data-reveal="service" data-motion-item="service" role="listitem" aria-labelledby="service-${domId(item.id)}-title">
       <img class="service-image" src="${prefix}${safeAssetPath(item.image)}" alt="${escapeHtml(item.alt)}" width="800" height="800" loading="lazy" decoding="async">
-      <h3 id="service-${domId(item.id)}-title"><span class="service-icon-wrap">${serviceIcon(item.id)}</span><span>${escapeHtml(item.title)}</span></h3>
+      <h3 id="service-${domId(item.id)}-title"><span class="service-icon-wrap">${serviceIcon(item.id, prefix)}</span><span>${escapeHtml(item.title)}</span></h3>
       <p>${escapeHtml(item.description)}</p>
     </div>`).join('');
   const projects = content.projects.map((project, index) => {

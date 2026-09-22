@@ -76,6 +76,19 @@ test('server redirects directory URLs and serves the SVG favicon with its MIME t
   expect([403, 404]).toContain(traversal.status());
 });
 
+test('service icons load from local Lucide SVG files in Spanish and English', async ({ page }) => {
+  for (const path of ['./', './en/']) {
+    await page.goto(path);
+    const icons = page.locator('.service-icon');
+    await expect(icons).toHaveCount(3);
+    const sources = await icons.evaluateAll((nodes) => nodes.map((node) => new URL(node.src).pathname.split('/').at(-1)));
+    expect(sources.sort()).toEqual(['briefcase-business.svg', 'headset.svg', 'workflow.svg']);
+    for (const icon of await icons.all()) {
+      await expect.poll(() => icon.evaluate((node) => node.complete && node.naturalWidth === 24)).toBe(true);
+    }
+  }
+});
+
 test('essential navigation and evidence remain available without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();

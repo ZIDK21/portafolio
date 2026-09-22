@@ -252,6 +252,11 @@ test('public resources are referenced, signature-checked, and contain no public 
     'assets/fonts/SpaceGrotesk-latin.woff2',
     'assets/profile/portrait.jpg',
     'assets/services/SOURCES.txt',
+    'icons/briefcase-business.svg',
+    'icons/headset.svg',
+    'icons/LICENSE.txt',
+    'icons/SOURCES.txt',
+    'icons/workflow.svg',
     'favicon.svg',
     'robots.txt',
     'sitemap.xml'
@@ -273,6 +278,17 @@ test('public resources are referenced, signature-checked, and contain no public 
   for (const omitted of map?.omittedAssets ?? []) {
     assert.ok(Array.isArray(omitted.publicPaths) && omitted.publicPaths.length > 0, `${omitted.source}: missing explicit omitted paths`);
     for (const relativePath of omitted.publicPaths) await assert.rejects(exists(join('public', relativePath)));
+  }
+});
+
+test('Lucide service icons retain local provenance and license files', async () => {
+  const sources = await readFile(join(root, 'public', 'icons', 'SOURCES.txt'), 'utf8');
+  const license = await readFile(join(root, 'public', 'icons', 'LICENSE.txt'), 'utf8');
+  assert.match(sources, /f06ac67e33d645c40b8ce19a0419c85c5d7dd751/);
+  assert.match(license, /^ISC License/m);
+  for (const icon of ['briefcase-business', 'workflow', 'headset']) {
+    const svg = await readFile(join(root, 'public', 'icons', `${icon}.svg`), 'utf8');
+    assert.match(svg, /stroke="#7dd3fc"/);
   }
 });
 
@@ -316,8 +332,13 @@ test('renderer emits complete semantic ES and EN documents with portable resourc
   assert.match(enHtml, /class="scroll-progress"/);
   assert.match(esHtml, /data-reveal="hero-copy"/);
   assert.match(enHtml, /data-reveal="hero-copy"/);
-  assert.match(esHtml, /class="service-icon"/);
-  assert.match(enHtml, /class="service-icon"/);
+  for (const [html, prefix] of [[esHtml, '\\./'], [enHtml, '\\.\\./']]) {
+    assert.equal((html.match(/class="service-icon"/g) ?? []).length, 3);
+    assert.doesNotMatch(html, /<svg\b[^>]*class="service-icon"/);
+    for (const icon of ['briefcase-business', 'workflow', 'headset']) {
+      assert.match(html, new RegExp(`src="${prefix}icons/${icon}\\.svg"`));
+    }
+  }
   assert.match(esHtml, /rel="preload" href="\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
   assert.match(enHtml, /rel="preload" href="\.\.\/assets\/fonts\/SpaceGrotesk-latin\.woff2"/);
 
