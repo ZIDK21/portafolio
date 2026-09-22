@@ -21,7 +21,7 @@
   },
   "metrics": [
     { "id": "tusa-cuts", "value": "135 reportes de anuncios en Meta Ads", "context": "Entre noviembre de 2024 y agosto de 2025, elaboro dos reportes por día operativo con una plantilla previamente creada y configurada por el. Durante ese periodo se registraron más de 11.600 mensajes y más de 6.800 personas en todas las sedes del bar. " },
-    { "id": "calendar-time", "value": "5-10 → 2-3 min/día", "context": "Notion → Google Calendar, uso real entre abril y agosto de 2026." },
+    { "id": "calendar-time", "value": "De 5–10 a 2–3 min/día al automatizar una agenda universitaria", "context": "Un cliente ya registraba sus actividades universitarias en su plantilla de Notion, pero debía copiar datos para crear cada evento en Google Calendar. La automatización genera el evento y programa un aviso un día antes a partir de ese registro, evitando repetir el trabajo y reduciendo el tiempo diario de seguimiento." },
     { "id": "dlro-checks", "value": "238/240 verificaciones", "context": "DLRO Editor; 238 aprobadas y 2 omitidas en la ejecución documentada." },
     { "id": "hornitos-use", "value": "8-9 personas", "context": "Los Hornitos Uploader; uso documentado dentro de una previsión de 10-12." }
   ],
