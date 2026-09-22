@@ -64,6 +64,7 @@ test('essential navigation and evidence remain available without JavaScript', as
 
 test('pages have no serious accessibility violations or failed resources', async ({ page }) => {
   const failures = [];
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   page.on('response', (response) => { if (response.status() >= 400) failures.push(`${response.status()} ${response.url()}`); });
   for (const path of ['./', './en/']) {
     await page.goto(path);
