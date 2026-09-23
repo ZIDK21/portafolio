@@ -97,8 +97,8 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
     position: absolute;
     inset-block: .75rem;
     left: calc(100% + clamp(.5rem, 1vw, 1rem));
-    width: .5px;
-    background: var(--border);
+    width: 1px;
+    background: var(--border-strong);
     content: "";
     pointer-events: none;
   }
