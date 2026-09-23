@@ -65,6 +65,7 @@ const referencedResources = (contents) => {
   for (const content of contents) {
     for (const project of content.projects) {
       if (project.evidence.image) references.set(project.evidence.image, 'image');
+      if (project.conceptual?.asset) references.set(project.conceptual.asset, 'conceptual');
       for (const download of project.downloads) references.set(download.href, 'download');
     }
     if (content.about.cv?.href) references.set(content.about.cv.href, 'download');
@@ -182,7 +183,7 @@ test('bilingual content follows the shared contract, privacy policy, and visible
   const es = await load('es');
   const en = await load('en');
   const topKeys = ['meta', 'nav', 'hero', 'metrics', 'about', 'services', 'projects', 'working', 'contact', 'ui'];
-  const projectKeys = ['id', 'title', 'summary', 'problem', 'action', 'result', 'technical', 'stack', 'evidence', 'downloads'];
+  const projectKeys = ['id', 'title', 'summary', 'problem', 'action', 'result', 'technical', 'stack', 'conceptual', 'evidence', 'downloads'];
   const sensitive = /(?:av(?:enida)?\.?\s+intercomunal|sector\s+dividive|(?<![A-Za-z0-9_])[A-Za-z]:[\\/]|file:\/\/|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|10\.2\.0\.1)/i;
 
   for (const [lang, content] of [['es', es], ['en', en]]) {
@@ -200,6 +201,11 @@ test('bilingual content follows the shared contract, privacy policy, and visible
       assert.deepEqual(Object.keys(project).sort(), [...projectKeys].sort());
       for (const field of ['title', 'summary', 'problem', 'action', 'result']) assert.ok(project[field].trim());
       assert.ok(project.stack.length >= 3);
+      if (project.conceptual) {
+        assert.deepEqual(Object.keys(project.conceptual).sort(), ['asset']);
+        assert.match(project.conceptual.asset, /^assets\/conceptual\/[A-Za-z0-9_.-]+\.svg$/);
+        assert.equal(project.evidence.image, null, `${lang}/${project.id}: conceptual asset must remain outside evidence`);
+      }
       if (project.evidence.image) {
         assert.match(project.evidence.image, /^assets\//);
         assert.ok(project.evidence.alt.trim());
@@ -231,6 +237,7 @@ test('bilingual content follows the shared contract, privacy policy, and visible
   assert.deepEqual(numberTokens(visibleText(es)), numberTokens(visibleText(en)));
   for (const index of es.projects.keys()) {
     assert.equal(es.projects[index].stack.length, en.projects[index].stack.length);
+    assert.deepEqual(es.projects[index].conceptual, en.projects[index].conceptual);
     assert.equal(es.projects[index].evidence.image !== null, en.projects[index].evidence.image !== null);
     assert.equal(es.projects[index].downloads.length, en.projects[index].downloads.length);
   }
@@ -240,6 +247,7 @@ test('public resources are referenced, signature-checked, and contain no public 
   const contents = await Promise.all(languages.map(load));
   const map = await readMap();
   const references = referencedResources(contents);
+  assert.equal(references.get('assets/conceptual/notion-calendar-flow.svg'), 'conceptual');
   const mapAssets = map?.assets.map((asset) => asset.publicAsset).filter(Boolean) ?? [];
   const staticPublicFiles = [
     'assets/dns/02-problem.png',
@@ -395,6 +403,8 @@ test('renderer emits complete semantic ES and EN documents with portable resourc
     assert.match(html, /<section aria-labelledby="tusa-problem-title"><h4 id="tusa-problem-title">/);
     assert.match(html, /<aside class="evidence" aria-labelledby="tusa-evidence-title">/);
     assert.match(html, /<img[^>]*loading="lazy"[^>]*decoding="async"/);
+    assert.match(html, /<figure class="conceptual-diagram"[^>]*aria-labelledby="notion-calendar-diagram-title"/);
+    assert.match(html, /src="(?:\.\.\/|\.\/)?assets\/conceptual\/notion-calendar-flow\.svg"[^>]*alt="Conceptual diagram|src="(?:\.\.\/|\.\/)?assets\/conceptual\/notion-calendar-flow\.svg"[^>]*alt="Diagrama conceptual/);
 
     for (const [, labelledBy] of html.matchAll(/aria-labelledby="([^"]+)"/g)) {
       for (const id of labelledBy.split(/\s+/)) {

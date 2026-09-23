@@ -4,3 +4,5 @@ qa/
 playwright-report/
 test-results/
 evidence-map.json
+graft/
+.playwright-cli/

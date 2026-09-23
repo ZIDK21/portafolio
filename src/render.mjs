@@ -29,6 +29,13 @@ const serviceIcons = {
   support: 'headset.svg'
 };
 
+const metricProjectIds = {
+  'tusa-cuts': 'tusa',
+  'calendar-time': 'notion-calendar',
+  'dlro-checks': 'dlro',
+  'hornitos-use': 'hornitos'
+};
+
 function serviceIcon(id, prefix) {
   const icon = serviceIcons[id] ?? serviceIcons.operations;
   return `<img class="service-icon" src="${prefix}icons/${icon}" alt="" aria-hidden="true" width="24" height="24" decoding="async">`;
@@ -59,11 +66,18 @@ export function renderPage(content, lang) {
   });
   const navLinks = content.nav.map((item) =>
     `<li><a href="#${escapeHtml(item.id)}">${escapeHtml(item.label)}</a></li>`).join('');
-  const metrics = content.metrics.map((metric) => `
+  const projectsById = new Map(content.projects.map((project) => [project.id, project]));
+  const metrics = content.metrics.map((metric) => {
+    const project = projectsById.get(metricProjectIds[metric.id]);
+    const caseLink = project ? ` <a class="metric-case-link" href="#${escapeHtml(project.id)}" aria-label="${escapeHtml(`${content.ui.viewCaseLabel}: ${project.title}`)}">${escapeHtml(content.ui.viewCaseLabel)}</a>` : '';
+    return `
     <div class="metric" data-reveal="metric" data-motion-item="metric" data-metric="${escapeHtml(metric.id)}">
       <dt>${escapeHtml(metric.value)}</dt>
-      <dd>${escapeHtml(metric.context)}</dd>
-    </div>`).join('');
+      <dd><span class="metric-copy">${escapeHtml(metric.context)}</span>${caseLink}</dd>
+    </div>`;
+  }).join('');
+  const projectIndex = content.projects.map((project, index) => `
+    <li><a href="#${escapeHtml(project.id)}"><span class="project-index-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><span>${escapeHtml(project.title)}</span></a></li>`).join('');
   const timeline = content.about.timeline.map((item) => `
     <li><span class="timeline-date">${escapeHtml(item.date)}</span><p>${escapeHtml(item.text)}</p></li>`).join('');
   const certifications = renderList(content.about.certifications, 'certification-list', (item) =>
@@ -87,6 +101,15 @@ export function renderPage(content, lang) {
         <img src="${prefix}${safeAssetPath(project.evidence.image)}" alt="${escapeHtml(project.evidence.alt)}" width="1024" height="768" loading="lazy" decoding="async">
         <span>${escapeHtml(content.ui.expandLabel)}</span>
       </a>` : '';
+    const conceptualDiagramPath = project.conceptual?.asset
+      ? `${prefix}${safeAssetPath(project.conceptual.asset)}`
+      : '';
+    const conceptualDiagram = conceptualDiagramPath ? `
+          <figure class="conceptual-diagram" aria-labelledby="${sectionTitleId('diagram')}">
+            <h4 id="${sectionTitleId('diagram')}">${escapeHtml(content.ui.conceptualDiagramLabel)}</h4>
+            <img src="${conceptualDiagramPath}" alt="${escapeHtml(content.ui.diagramAlt)}" width="1200" height="720" loading="lazy" decoding="async">
+            <figcaption><span>${escapeHtml(content.ui.diagramCaption)}</span><a href="${conceptualDiagramPath}">${escapeHtml(content.ui.diagramFullSizeLabel)}</a></figcaption>
+          </figure>` : '';
     const downloads = project.downloads.length ? `
       <div class="downloads">
         <h4>${escapeHtml(content.ui.pdfLabel)}</h4>
@@ -123,6 +146,7 @@ export function renderPage(content, lang) {
             ${downloads}
           </aside>
         </div>
+        ${conceptualDiagram}
       </article>`;
   }).join('');
   const working = content.working.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('');
@@ -161,6 +185,7 @@ export function renderPage(content, lang) {
   <link rel="alternate" hreflang="x-default" href="${spanishUrl}">
   <link rel="preload" href="${prefix}assets/fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${prefix}assets/fonts/Manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>if (location.hash) document.documentElement.classList.add('initial-hash');</script>
   <link rel="stylesheet" href="${prefix}styles.css">
   <script type="application/ld+json">${structuredData}</script>
   <script type="module" src="${prefix}main.js"></script>
@@ -215,7 +240,7 @@ export function renderPage(content, lang) {
       <div class="container"><h2 id="services-title" data-reveal="services-title">${escapeHtml(content.services.title)}</h2><div class="services-grid" data-motion-group="services" role="list" aria-labelledby="services-title">${services}</div></div>
     </section>
     <section class="projects section" id="proyectos" aria-labelledby="projects-title">
-      <div class="container"><h2 id="projects-title" data-reveal="projects-title">${escapeHtml(content.ui.projectsTitle)}</h2><div class="projects-list" data-motion-group="projects">${projects}</div></div>
+      <div class="container"><h2 id="projects-title" data-reveal="projects-title">${escapeHtml(content.ui.projectsTitle)}</h2><nav class="project-index" aria-label="${escapeHtml(content.ui.projectIndexLabel)}"><ol>${projectIndex}</ol></nav><div class="projects-list" data-motion-group="projects">${projects}</div></div>
     </section>
     <section class="working section" id="metodo" aria-labelledby="working-title">
       <div class="container working-panel" data-reveal="working"><h2 id="working-title">${escapeHtml(content.working.title)}</h2><div>${working}</div></div>

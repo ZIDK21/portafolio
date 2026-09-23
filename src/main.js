@@ -1,5 +1,15 @@
 // Motion sobrio CSS-first: la página sigue completa sin JS, y cada reveal respeta las preferencias del sistema.
 document.documentElement.classList.add('js');
+if (document.documentElement.classList.contains('initial-hash')) {
+  const settleInitialHash = () => {
+    let id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    requestAnimationFrame(() => document.documentElement.classList.remove('initial-hash'));
+  };
+  if (document.readyState === 'complete') settleInitialHash();
+  else addEventListener('load', settleInitialHash, { once: true });
+}
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 let reduce = motionQuery.matches;
 const revealElements = [...document.querySelectorAll('[data-reveal]')];
@@ -98,12 +108,34 @@ function updateFallbackProgress(sectionId) {
   scrollProgress.style.transform = `scaleX(${progress.toFixed(4)})`;
 }
 
+function keepActiveNavLinkVisible(link) {
+  const nav = link.closest('.nav-links');
+  if (!nav || !matchMedia('(max-width: 52rem)').matches) return;
+
+  const navRect = nav.getBoundingClientRect();
+  const linkRect = link.getBoundingClientRect();
+  const edge = 4;
+  const distance = linkRect.left < navRect.left + edge
+    ? linkRect.left - navRect.left - edge
+    : linkRect.right > navRect.right - edge
+      ? linkRect.right - navRect.right + edge
+      : 0;
+
+  if (Math.abs(distance) > 1) {
+    nav.scrollBy({ left: distance, behavior: reduce ? 'auto' : 'smooth' });
+  }
+}
+
 const setActiveSection = (sectionId) => {
   navLinks.forEach((link) => {
     const isActive = link.getAttribute('href') === `#${sectionId}`;
     link.classList.toggle('is-active', isActive);
-    if (isActive) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
+    if (isActive) {
+      link.setAttribute('aria-current', 'location');
+      keepActiveNavLinkVisible(link);
+    } else {
+      link.removeAttribute('aria-current');
+    }
   });
   updateFallbackProgress(sectionId);
 };

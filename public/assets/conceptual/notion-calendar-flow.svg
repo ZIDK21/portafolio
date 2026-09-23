@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama conceptual del flujo Notion–Google Calendar / Conceptual diagram of the Notion–Google Calendar flow</title>
+  <desc id="desc">Representación esquemática del flujo de eventos de Notion a Google Calendar mediante Apps Script, con retorno limitado de metadatos. No es una captura ni evidencia de una ejecución activa. / Schematic representation of the event flow from Notion to Google Calendar through Apps Script, with limited metadata returned. It is not a screenshot or evidence of an active run.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1728"/>
+      <stop offset="1" stop-color="#101f34"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#54d6c7"/>
+      <stop offset="1" stop-color="#8de2d7"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#78d9ce"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#a7bacb"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; }
+      .muted { fill: #b5c5d5; }
+      .soft { fill: #8fa3b7; }
+      .bright { fill: #f3f7fb; }
+      .small { font-size: 14px; letter-spacing: .04em; }
+    </style>
+  </defs>
+
+  <rect x="12" y="12" width="1176" height="696" rx="26" fill="url(#bg)" stroke="#273a52" stroke-width="2"/>
+  <circle cx="72" cy="61" r="5" fill="#63d8ca"/>
+  <rect x="89" y="43" width="430" height="36" rx="18" fill="#142940" stroke="#2b4961"/>
+  <text x="109" y="67" fill="#bdeee8" font-size="13" font-weight="700" letter-spacing="1.25">DIAGRAMA CONCEPTUAL / CONCEPTUAL DIAGRAM</text>
+
+  <text x="64" y="137" class="bright" font-size="38" font-weight="700">Una fecha, un registro de origen</text>
+  <text x="64" y="174" class="muted" font-size="19">One date, one source entry · Eventos hacia Calendar / Events to Calendar</text>
+
+  <rect x="62" y="221" width="282" height="220" rx="18" fill="#11243a" stroke="#314a63" stroke-width="2"/>
+  <rect x="62" y="221" width="6" height="220" rx="3" fill="url(#accent)"/>
+  <rect x="90" y="247" width="40" height="34" rx="8" fill="#19364b"/>
+  <rect x="98" y="254" width="24" height="4" rx="2" fill="#70d8ce"/>
+  <rect x="98" y="263" width="18" height="4" rx="2" fill="#9ab1c4"/>
+  <rect x="98" y="272" width="22" height="4" rx="2" fill="#9ab1c4"/>
+  <text x="90" y="319" class="bright" font-size="25" font-weight="700">Notion</text>
+  <text x="90" y="351" class="muted" font-size="17">Fecha + contexto</text>
+  <text x="90" y="376" class="soft" font-size="15">Date + context</text>
+  <text x="90" y="412" fill="#73d9ce" font-size="12" font-weight="700" letter-spacing="1.2">ORIGEN / SOURCE</text>
+
+  <path d="M356 330 H426" fill="none" stroke="#78d9ce" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="442" y="221" width="316" height="220" rx="18" fill="#132a40" stroke="#5b8a90" stroke-width="2"/>
+  <rect x="442" y="221" width="316" height="5" rx="2.5" fill="url(#accent)"/>
+  <circle cx="478" cy="265" r="19" fill="#193b4c" stroke="#4f9b98"/>
+  <path d="M469 265h18M478 256v18" fill="none" stroke="#9ae5dc" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="510" y="273" class="bright" font-size="24" font-weight="700">Apps Script</text>
+  <text x="474" y="319" class="muted" font-size="16">Consulta por páginas</text>
+  <text x="474" y="343" class="soft" font-size="14">Paged query</text>
+  <line x1="474" y1="362" x2="726" y2="362" stroke="#30475d"/>
+  <text x="474" y="389" class="muted" font-size="15">Crea · actualiza · retira</text>
+  <text x="474" y="414" class="soft" font-size="14">Create · update · remove</text>
+
+  <path d="M770 330 H840" fill="none" stroke="#78d9ce" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="856" y="221" width="282" height="220" rx="18" fill="#11243a" stroke="#314a63" stroke-width="2"/>
+  <rect x="856" y="221" width="6" height="220" rx="3" fill="#7ba8e8"/>
+  <rect x="884" y="247" width="40" height="34" rx="8" fill="#203552"/>
+  <rect x="891" y="253" width="26" height="22" rx="3" fill="none" stroke="#91b6eb" stroke-width="2"/>
+  <line x1="891" y1="260" x2="917" y2="260" stroke="#91b6eb" stroke-width="2"/>
+  <line x1="898" y1="250" x2="898" y2="256" stroke="#c6d9f2" stroke-width="2" stroke-linecap="round"/>
+  <line x1="910" y1="250" x2="910" y2="256" stroke="#c6d9f2" stroke-width="2" stroke-linecap="round"/>
+  <text x="884" y="319" class="bright" font-size="24" font-weight="700">Google Calendar</text>
+  <text x="884" y="351" class="muted" font-size="16">Evento de día completo</text>
+  <text x="884" y="376" class="soft" font-size="14">All-day event</text>
+  <text x="884" y="412" fill="#a9c7f1" font-size="14">Aviso un día antes / Reminder one day ahead</text>
+
+  <path d="M600 444 V478 H204 V451" fill="none" stroke="#a7bacb" stroke-width="2" stroke-dasharray="6 7" marker-end="url(#arrow-muted)"/>
+  <text x="600" y="508" text-anchor="middle" class="muted" font-size="15" font-weight="700">Escritura limitada: solo ID, estado y fecha de sincronización</text>
+  <text x="600" y="530" text-anchor="middle" class="soft" font-size="14">Limited write-back: ID, status and sync date only</text>
+
+  <rect x="62" y="557" width="1076" height="67" rx="14" fill="#182b40" stroke="#4c6476"/>
+  <circle cx="91" cy="590" r="10" fill="#f0c778"/>
+  <text x="91" y="595" text-anchor="middle" fill="#172338" font-size="13" font-weight="700">!</text>
+  <text x="116" y="585" class="bright" font-size="15" font-weight="700">El trigger activo no está demostrado en la revisión disponible.</text>
+  <text x="116" y="607" class="muted" font-size="14">An active trigger is not demonstrated by the available review.</text>
+
+  <text x="64" y="671" class="soft" font-size="13">Representación conceptual; no es captura ni evidencia de una ejecución activa.</text>
+  <text x="1136" y="671" text-anchor="end" class="soft" font-size="13">Conceptual illustration; not a screenshot or proof of an active run.</text>
+</svg>

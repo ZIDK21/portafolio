@@ -112,7 +112,7 @@ test('pages have no serious accessibility violations or failed resources', async
   expect(failures).toEqual([]);
 });
 
-test('both languages reflow without page or navigation overflow', async ({ page }) => {
+test('both languages reflow and keep every navigation link reachable', async ({ page }) => {
   for (const width of [320, 375, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of ['./', './en/']) {
@@ -123,11 +123,19 @@ test('both languages reflow without page or navigation overflow', async ({ page 
         scrollWidth: element.scrollWidth,
       }));
       expect(dimensions.scrollWidth, `${path} at ${width}px`).toBeLessThanOrEqual(dimensions.clientWidth + 1);
-      const navFits = await page.locator('.nav-links a').evaluateAll((links) => links.every((link) => {
-        const box = link.getBoundingClientRect();
-        return box.left >= -1 && box.right <= document.documentElement.clientWidth + 1;
-      }));
-      expect(navFits, `navigation ${path} at ${width}px`).toBe(true);
+      const navReachable = await page.locator('.nav-links').evaluate((nav) => {
+        const links = [...nav.querySelectorAll('a')];
+        const box = nav.getBoundingClientRect();
+        if (links.length !== 7 || box.left < -1 || box.right > document.documentElement.clientWidth + 1) return false;
+        if (nav.scrollWidth <= nav.clientWidth + 1) return links.every((link) => {
+          const linkBox = link.getBoundingClientRect();
+          return linkBox.left >= -1 && linkBox.right <= document.documentElement.clientWidth + 1;
+        });
+        nav.scrollLeft = nav.scrollWidth;
+        const lastBox = links.at(-1).getBoundingClientRect();
+        return getComputedStyle(nav).overflowX === 'auto' && lastBox.left >= box.left - 1 && lastBox.right <= box.right + 1;
+      });
+      expect(navReachable, `navigation ${path} at ${width}px`).toBe(true);
     }
   }
 });

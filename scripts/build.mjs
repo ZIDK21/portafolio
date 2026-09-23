@@ -16,6 +16,7 @@ function resourcePaths(content) {
   if (content.about.cv?.href) paths.push(content.about.cv.href);
   for (const project of content.projects) {
     if (project.evidence.image) paths.push(project.evidence.image);
+    if (project.conceptual?.asset) paths.push(project.conceptual.asset);
     paths.push(...project.downloads.map((download) => download.href));
   }
   return paths;
