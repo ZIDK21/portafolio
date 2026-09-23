@@ -23,7 +23,7 @@
     { "id": "tusa-cuts", "value": "135 comparable reports across four locations", "context": "He created a template to gather Meta Ads data and activity from all four locations using the same fields and reporting times. Between November 2024 and August 2025, he prepared two reports per operating day. During that period, more than 11,600 messages and 6,800 people were recorded across the bar's four locations." },
     { "id": "calendar-time", "value": "From 5–10 to 2–3 min/day by automating a university schedule", "context": "A client already recorded university activities in a Notion template, but had to copy the details to create each event in Google Calendar. The automation creates each event and schedules a reminder one day ahead based on that entry, avoiding duplicate work and reducing daily follow-up time." },
     { "id": "dlro-checks", "value": "A batch PDF reporting app", "context": "DLRO Editor turned manual corrections for each PDF into a guided session. It applies changes to the full batch, preserves the formatting, and generates a ZIP without modifying the originals." },
-    { "id": "hornitos-use", "value": "8-9 people", "context": "Los Hornitos Uploader; documented use within a 10-12 person expectation." }
+    { "id": "hornitos-use", "value": "Private web app for sharing files via direct links", "context": "Los Hornitos Uploader lets the administrator store files on their device and give each recipient an individual link or a QR code for downloading. It can also resume interrupted uploads and recover metadata locally, reducing the steps involved in manual distribution through external services." }
   ],
   "about": {
     "title": "About me and my path",
