@@ -22,7 +22,7 @@
   "metrics": [
     { "id": "tusa-cuts", "value": "135 reportes comparables entre cuatro sedes", "context": "Creó una plantilla para reunir datos de Meta Ads y la actividad de las cuatro sedes con los mismos campos y horarios. Entre noviembre de 2024 y agosto de 2025 elaboró dos reportes por día operativo. En ese periodo se registraron más de 11.600 mensajes y 6.800 personas en las cuatro sedes del bar." },
     { "id": "calendar-time", "value": "De 5–10 a 2–3 min/día al automatizar una agenda universitaria", "context": "Un cliente ya registraba sus actividades universitarias en su plantilla de Notion, pero debía copiar datos para crear cada evento en Google Calendar. La automatización genera el evento y programa un aviso un día antes a partir de ese registro, evitando repetir el trabajo y reduciendo el tiempo diario de seguimiento." },
-    { "id": "dlro-checks", "value": "238/240 verificaciones", "context": "DLRO Editor; 238 aprobadas y 2 omitidas en la ejecución documentada." },
+    { "id": "dlro-checks", "value": "Una aplicación de reportes de PDF por lotes", "context": "DLRO Editor convirtió la corrección manual de cada PDF en una sesión guiada. Aplica los cambios al lote completo, conserva el formato y genera un ZIP sin modificar los originales." },
     { "id": "hornitos-use", "value": "8-9 personas", "context": "Los Hornitos Uploader; uso documentado dentro de una previsión de 10-12." }
   ],
   "about": {
