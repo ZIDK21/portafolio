@@ -95,7 +95,7 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
   .metric::after {
     position: absolute;
     inset-block: .75rem;
-    left: calc(100% + 6cm);
+    left: calc(100% + 4cm);
     width: 1px;
     background: var(--border-strong);
     content: "";
