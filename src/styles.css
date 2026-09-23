@@ -96,9 +96,9 @@ ul, ol, dl, figure { margin: 0; padding: 0; } ul { list-style: none; }
   .metric::after {
     position: absolute;
     inset-block: .75rem;
-    left: calc(100% + 4cm);
-    width: 1px;
-    background: var(--border-strong);
+    left: calc(100% + clamp(.5rem, 1vw, 1rem));
+    width: .5px;
+    background: var(--border);
     content: "";
     pointer-events: none;
   }
