@@ -27,7 +27,7 @@
   ],
   "about": {
     "title": "Sobre mí y trayectoria",
-    "summary": "Soy asistente virtual orientado a automatización con IA. He trabajado con atención al cliente, pedidos, inventario, CRM, reportes y soporte remoto para Windows. También configuro flujos con n8n, Zapier y Apps Script, y uso Google Workspace, Excel, SQL y Supabase. Reviso los resultados de IA antes de incorporarlos al trabajo.",
+    "summary": "Soy asistente virtual orientado a automatización con IA. He trabajado con atención al cliente, pedidos, inventario, CRM, reportes y soporte remoto para Windows. También configuro flujos con n8n, Zapier y Apps Script, y uso Google Workspace, Excel, SQL y Supabase.",
     "timeline": [
       { "date": "may. 2023 - presente", "text": "Freelance y proyectos independientes: pedidos, inventario, posventa, CRM, reportes, automatización y soporte Windows." },
       { "date": "nov. 2024 - ago. 2025", "text": "TUSA MX: administración de anuncios en Meta Ads y dos reportes diarios de rendimiento y actividad por sede." },
@@ -45,7 +45,7 @@
     "title": "Qué hago",
     "items": [
       { "id": "operations", "image": "assets/services/operations.jpg", "alt": "Imagen de referencia: escritorio con documentos y portátil", "title": "Asistencia y operaciones", "description": "Pedidos, inventario, atención posventa, CRM, seguimiento y reportes para que la información llegue ordenada." },
-      { "id": "automation", "image": "assets/services/automation-v3.jpg", "alt": "Imagen de referencia: espacio de trabajo moderno con código en pantalla", "title": "Automatización e integraciones", "description": "Flujos con n8n, Zapier, Apps Script, APIs y webhooks, con límites visibles y revisión humana." },
+      { "id": "automation", "image": "assets/services/automation-v3.jpg", "alt": "Imagen de referencia: espacio de trabajo moderno con código en pantalla", "title": "Automatización e integraciones", "description": "Flujos con n8n, Zapier, Apps Script, APIs y webhooks." },
       { "id": "support", "image": "assets/services/support-v4.jpg", "alt": "Imagen de referencia: audífonos colgados en un monitor sobre un escritorio", "title": "Soporte técnico de Windows", "description": "Configuración, diagnóstico y resolución de problemas, y soporte remoto con AnyDesk y TeamViewer, documentando lo observado." }
     ]
   },
